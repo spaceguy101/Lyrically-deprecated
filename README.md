@@ -1,4 +1,4 @@
-# Lyrically
+# Lyrical
 Chrome Extension For Lyrics
 -----------
 ###View lyrics in a panel window (Same as Hangouts Extension).
