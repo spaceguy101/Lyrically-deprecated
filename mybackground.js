@@ -104,8 +104,11 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			{
 			str = (str).replace(str_arr[i], '')
 			}
-			str=str.trim();
-			//console.log(str);
+				
+			console.log(str);
+			
+			
+			
 			patt_str=new RegExp('-');
 			if(patt_str.test(str)){
 			//For sony vevo india//BROKEN !!! Fix this
@@ -258,8 +261,21 @@ function youtubeMethod(str){
 			str = str.replace(/^[\/\s,:;~-\s"]+/, ''); // trim starting white chars and dash
 			str = str.replace(/[\/\s,:;~-\s"\s!]+$/, ''); // trim trailing white chars and dash 
 			
+			if(/-/.test(str)&&(str.indexOf('-')!=str.lastIndexOf('-')))
+			{
+				str=str.replace(/-/,'');
+				
+				
+			commaIndex = str.indexOf("-");
+			 title_sony = str.substring(0, commaIndex);
+			 album_sony = str.substring(commaIndex+1, str.length);
+			getDataFromMusicBrainz_albumAndTitle(title_sony,album_sony);
+		
+			}
+			else
+			{
 			title=str;
-			console.log(title);
+			
 			$.ajax({
 			url: 'https://ajax.googleapis.com/ajax/services/search/web',
 			data: {v:'1.0',q: 'site:lyrics.wikia.com -"Page Ranking Information"' + title},
@@ -273,4 +289,5 @@ function youtubeMethod(str){
 				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':site});
 				
 			}});
+			}
 }
