@@ -1,0 +1,49 @@
+
+{
+  "name": "lyrics",
+  "version": "1.0",
+  "description": ":P",
+  
+  "background": {
+      "scripts": [ "jquery-2.1.1.min.js", "mybackground.js" ]
+   },
+   "content_scripts": [ {
+      "js": [ "mycontent.js","cs_gaana.js","jquery-2.1.1.min.js" ],
+      "matches": [ "http://gaana.com/*","http://beta.gaana.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "mycontent.js","cs_saavn.js","jquery-2.1.1.min.js" ],
+     "matches": [ "http://www.saavn.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "mycontent.js","cs_rdio.js","jquery-2.1.1.min.js" ],
+     "matches": [ "http://www.rdio.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": [ "mycontent.js","cs_hungama.js","jquery-2.1.1.min.js" ],
+     "matches": [ "http://www.hungama.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": ["cs_youtube.js","jquery-2.1.1.min.js" ],
+     "matches": [ "https://www.youtube.com/*" ],
+      "run_at": "document_end"
+   }, {
+      "js": ["mycontent.js","cs_bopfm.js","jquery-2.1.1.min.js" ],
+     "matches": [ "https://bop.fm/*" ],
+      "run_at": "document_end"
+   }],
+   "content_security_policy": "script-src 'self' https://apis.google.com https://ajax.googleapis.com; object-src 'self'",
+  "page_action" :
+  {
+    "default_icon" : "icons/icon64.png",
+    "default_title" : "lyrics"
+  },
+  "icons": {
+      "128": "images_4/icon-128x128.png",
+      "48": "images_4/icon-48x48.png"
+   },
+   "manifest_version": 2,
+  "permissions" : [
+    "tabs", "http://*/*", "https://*/*"
+  ]
+}

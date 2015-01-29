@@ -1,0 +1,128 @@
+body{
+font-family: sans-serif;
+-webkit-user-select: none;
+text-rendering: optimizeLegibility;
+-webkit-font-smoothing: antialiased;
+font: 15px 'Roboto';
+margin: 0px;
+padding:0px;
+overflow: hidden; 
+border-left-style: solid;
+border-left-width: 1px;
+border-left-color: rgba(0, 0, 0, 0.19);
+border-right-style: solid;
+border-right-width: 1px;
+border-right-color: rgba(0, 0, 0, 0.19);
+}
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('../font/Roboto-Regular.ttf');
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../font/Roboto-Medium.ttf');
+  font-weight: 600;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('../font/Roboto-Bold.ttf');
+  font-weight: 700;
+  font-style: normal;
+}
+
+#actionbar {
+
+	display: block;
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
+	width: 100%;
+    height: 30px;
+	background-color:#4285f4;
+	margin:auto;
+	text-align: center;
+	}
+
+#header {
+	font-size: 20px;
+	fill: white;
+	color: white;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+}
+#input {
+font-size: 20px;
+background-color: #d0f4de;
+
+}
+#input1 {
+font-size: 20px;
+background-color: #d0f4de;
+}
+
+
+#btn {
+font-size: 20px;
+background-color: #d0f4de;
+}
+
+
+
+#info
+{
+	font-size: 18px;
+	color: #555;
+	text-align: center;
+	margin-bottom: 25px;
+}
+
+a{
+	color: #074E8C;
+}
+
+.scrollbar
+{	
+	min-height: 425px;
+	height: 425px;
+	width: 100%;
+	float: left;
+	margin-bottom: auto;
+	overflow:hidden;
+	text-align: center;
+	margin-bottom: auto;
+	font-size: 15px;
+	position: fixed;
+	display: block;
+	text-decoration: none;
+	box-sizing: border-box;
+	line-height: 1.7;
+	user-select: none;
+	position: absolute;
+	font-weight: 400;
+	box-shadow: 0 6px 20px 0 rgba(0, 0, 0, 0.19),
+              0 8px 17px 0 rgba(0, 0, 0, 0.2); 
+}
+
+
+.btn {
+  background: #3498db;
+  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
+  -webkit-border-radius: 6;
+  -moz-border-radius: 6;
+  border-radius: 6px;
+  text-shadow: 2px 3px 1px #666666;
+  font-family: Arial;
+  color: #ffffff;
+  font-size: 13px;
+  background: #3498db;
+  padding: 3px 6px 3px 6px;
+  text-decoration: none;
+}
+
+.btn:hover {
+  background: #3cb0fd;
+  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
+  text-decoration: none;
+}
