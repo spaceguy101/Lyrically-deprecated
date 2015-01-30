@@ -35,7 +35,7 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	$("#in").hide(400);
 	mainView.innerHTML = "Searching lyrics...";
 	header.innerHTML = request.title ;
-	console.log(request.yt_url);
+	//console.log(request.yt_url);
 	getLyricsFromLyricWikiURL(request.yt_url);
 	}
 	
@@ -146,6 +146,7 @@ function getLyricsFromLyricWikiURL(songURL) {
 				success : function(songData, songStatus) {
 					
 					lyrics = getLyricsFromRawHtml_wikia(songData);
+					$('.scrollbar').perfectScrollbar('update');
 					if (lyrics.length === 0) {
 						throw ('No lyrics found');
 					} else {
@@ -167,6 +168,7 @@ function getLyricsFromLyricMintURL(songURL) {
 				success : function(songData, songStatus) {
 					
 					lyrics = getLyricsFromRawHtml_mint(songData);
+					$('.scrollbar').perfectScrollbar('update');
 					if (lyrics.length === 0) {
 						throw ('No lyrics found on mint');
 					} else {

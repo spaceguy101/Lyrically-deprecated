@@ -70,7 +70,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	title = message.title.replace(/\s*\(.*?\)\s*/g, '');
 	album=message.album;
 	site='others';
-	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'yt_url':urll,'site':site});
+	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site});
 	}
 	
 	//for youtube..
@@ -99,7 +99,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			str = str.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // capture "Track title"
 			str = (str).replace(/\s*\[.*?\]\s*/g, '');
 			str = (str).replace(/\s*\(.*?\)\s*/g, '');
-			var str_arr=['Official','official','OFFICIAL','Video','VIDEO','Full','FULL','Song','Exclusive','EXCLUSIVE','Audio']
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '')
@@ -149,6 +149,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
 function getDataFromMusicBrainz(title1) {
 
+	site='others';
 	query = 'recording:' + title1 + ' AND country:IN';
 
 	$
@@ -194,6 +195,7 @@ function getDataFromMusicBrainz(title1) {
 function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 	title2=title2.trim();
 	album2=album2.trim();
+	site='others';
 	//console.log('Title'+title2);
 	//console.log('Albym'+album2);
 	query = 'recording:' + title2 + ' AND release:'+ album2 ;
@@ -239,25 +241,25 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 
 function youtubeMethod(str){
 			site='youtube';
-			str = (str).replace(/ (Ft|ft|feat|featuring).*?\-/, '');
-			var patt = /(ft|feat|featuring)/g;
-			if(patt.test(str))
+			str = (str).replace(/ (ft|feat).*?\-/i, '-');
+			
+			if(/(ft|feat)/g.test(str))
 			{
-			str = (str).replace(/ (ft|feat|featuring).*/, '');
+			str = (str).replace(/ (ft|feat).*/i, '');
 			}
-			str = str.replace(/\s+\(?live\)?$/i, ''); // live
+			
 			str = str.replace(/\s+(HD|HQ)\s*$/, ''); // HD (HQ)
 			 str = str.replace(/\s*\(\s*[0-9]{4}\s*\)/i, ''); // (1999)
 			str = (str).replace(/\s*\[.*?\]\s*/g, '');
 			str = (str).replace(/\s*\(.*?\)\s*/g, '');
 			
-			var str_arr=['Official','official','OFFICIAL','Video','VIDEO','Full','FULL','Song','Exclusive','EXCLUSIVE']
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/live/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '')
 			}
-			str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // 'Track title'
-			str = str.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // 'Track title'
+			//str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // 'Track title'
+			//str = str.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // 'Track title'
 			str = str.replace(/^[\/\s,:;~-\s"]+/, ''); // trim starting white chars and dash
 			str = str.replace(/[\/\s,:;~-\s"\s!]+$/, ''); // trim trailing white chars and dash 
 			
@@ -283,7 +285,7 @@ function youtubeMethod(str){
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
-			
+				site='youtube';
 				urll = googledata.responseData.results[0].unescapedUrl ;
 				
 				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':site});
