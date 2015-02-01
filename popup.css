@@ -26,7 +26,7 @@ background-color:#d0f4de;
 }
 
 #header {
-
+	font: 30px;
 	display: block;
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
 	width: 100%;
