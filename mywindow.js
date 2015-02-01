@@ -115,11 +115,9 @@ function getURLFromLyricWiki(artist, title)
 
 						var lyrics = $(lyricsData).find("lyrics").text();
 						if (lyrics === 'Not found') {
-							mainView.innerHTML = 'Lyrics not found for '
-									+ title
-									+ ' by '
-									+ artist
-							getLyricsFromLyricsmint(title,artist);
+							
+							//getLyricsFromLyricsmint(title,artist);
+							getLyricsFromLyricsMasti(title,artist);
 							throw new Error('LYRICS NOT FOUND');
 						}
 						getLyricsFromLyricWikiURL(songURL);
@@ -160,6 +158,7 @@ function getLyricsFromLyricWikiURL(songURL) {
 			});
 }
 
+/*
 function getLyricsFromLyricMintURL(songURL) {
 	$
 			.ajax({
@@ -168,6 +167,30 @@ function getLyricsFromLyricMintURL(songURL) {
 				success : function(songData, songStatus) {
 					
 					lyrics = getLyricsFromRawHtml_mint(songData);
+					if (lyrics.length === 0) {
+						throw ('No lyrics found on mint');
+					} else {
+						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
+								+ songURL + '" target="_blank">LyricMint.com  </a>'
+								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';
+						$('.scrollbar').perfectScrollbar('update');
+					}
+					
+					
+				}
+			});
+}
+*/ 
+
+
+function getLyricsFromLyricMastiURL(songURL) {
+	$
+			.ajax({
+				url : songURL,
+				type : 'GET',
+				success : function(songData, songStatus) {
+					
+					lyrics = getLyricsFromRawHtml_masti(songData);
 					$('.scrollbar').perfectScrollbar('update');
 					if (lyrics.length === 0) {
 						throw ('No lyrics found on mint');
@@ -183,6 +206,8 @@ function getLyricsFromLyricMintURL(songURL) {
 			});
 }
 
+
+
 function getLyricsFromRawHtml_wikia(data) 
 {
 	var filter = function() 
@@ -192,13 +217,25 @@ function getLyricsFromRawHtml_wikia(data)
 			.html();
 }
 
+/*
 function getLyricsFromRawHtml_mint(data) 
 {
 	var filter = function() 
 	{return this.nodeType === Node.TEXT_NODE|| $(this).is('p, br, i, b, strong, em');};
 	return $('<div>').append(
-			$(data).find('#lyric').contents().filter(filter)).remove()
-			.html().trim().replace(/ Also Listen to.*/, '');;
+			$(data).find('#lyric > p').contents().filter(filter)).remove()
+			.html();
+}
+*/
+
+
+function getLyricsFromRawHtml_masti(data) 
+{
+	var filter = function() 
+	{return this.nodeType === Node.TEXT_NODE|| $(this).is(' br, i, b, strong, em');};
+	return $('<div>').append(
+			$(data).find('#lcontent1').contents().filter(filter)).remove()
+			.html();
 }
 
 
@@ -235,6 +272,7 @@ function getArtistFromMusicBrainz(title, album) {
 /*
 *Need to improve Search Results!
  */
+ /*
 function getLyricsFromLyricsmint(title,artist) {
 
 $.ajax({
@@ -244,15 +282,51 @@ $.ajax({
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
-			
+				if(googledata.responseData.results[0].unescapedUrl){
 				url_lyricsmint = googledata.responseData.results[0].unescapedUrl ;
+				
 				document.getElementById('main').innerHTML = '</p> Try URL <a href="'
 								+ url_lyricsmint + '" target="_blank">'
 									+ title
 									+ '" by "'
 									+ artist +'</a>';
 									
-				getLyricsFromLyricMintURL(url_lyricsmint)	;				
+				getLyricsFromLyricMintURL(url_lyricsmint)	;	
+				}
+				else{
+					document.getElementById('main').innerHTML='Cant find on mint';
+				}
+							
+				
+			}});
+}
+*/ 
+
+//For Lyrics masti.com
+function getLyricsFromLyricsMasti(title,artist) {
+
+$.ajax({
+			url: 'https://ajax.googleapis.com/ajax/services/search/web',
+			data: {v:'1.0',q: 'site:www.lyricsmasti.com -"Page Ranking Information"' + title },
+			dataType: 'jsonp',
+			type: 'GET',
+			error: function(){},
+			success: function(googledata){
+				if(googledata.responseData.results[0].unescapedUrl){
+				url_lyricsMasti = googledata.responseData.results[0].unescapedUrl ;
+				
+				document.getElementById('main').innerHTML = '</p> Try URL <a href="'
+								+ url_lyricsMasti + '" target="_blank">'
+									+ title
+									+ '" by "'
+									+ artist +'</a>';
+									
+				getLyricsFromLyricMastiURL(url_lyricsMasti)	;	
+				}
+				else{
+					document.getElementById('main').innerHTML='Cant find on mint';
+				}
+							
 				
 			}});
 }
