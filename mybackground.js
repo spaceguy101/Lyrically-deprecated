@@ -82,7 +82,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			//cleaning title
 			
 			// Put If else condition whether to Get Lyrics by Youtube method or Other method....
-			var patt_title3 = new RegExp(/\s*\|.*?\|\s*/g);
+			var patt_title3 = new RegExp(/ \s*\|.*/g);
 			var patt_title1 = new RegExp(/\s*\'.*?\'\s*/g);
 			var patt_title2 = new RegExp(/\s*\".*?\"\s*/g);
 			//var patt_title3 = new RegExp('|');
@@ -91,7 +91,12 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			{
 			site='others';
 			//clean title for indian songs
+			str = (str).replace(/ (ft|feat|featuring).*?\-/i, '');
 			
+			if(/(ft|feat)/g.test(str))
+			{
+			str = (str).replace(/ (ft|feat|featuring).*/i, '');
+			}
 			str = (str).replace(/ \s*\|.*/g, '');
 			str = str.replace(/\s+(HD|HQ)\s*$/, ''); // HD (HQ)
 			str = (str).replace(/\s*\|.*?\|\s*/g, ''); // Remove |.*|
@@ -115,7 +120,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			commaIndex = str.indexOf("-");
 			 title_sony = str.substring(0, commaIndex);
 			 album_sony = str.substring(commaIndex+1, str.length);
-			// console.log(title_sony + "  |  "+  album_sony);
+			console.log(title_sony + "  |  "+  album_sony);
 			getDataFromMusicBrainz_albumAndTitle(title_sony,album_sony);
 			}
 				else getDataFromMusicBrainz(str);
@@ -198,8 +203,9 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 	site='others';
 	//console.log('Title'+title2);
 	//console.log('Albym'+album2);
+	if(album2)
 	query = 'recording:' + title2 + ' AND release:'+ album2 ;
-
+	else query = 'recording:' + title2 + ' AND country:IN';
 	$
 			.ajax({
 				url : "http://musicbrainz.org/ws/2/recording",
@@ -241,7 +247,7 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 
 function youtubeMethod(str){
 			site='youtube';
-			str = (str).replace(/ (ft|feat).*?\-/i, '-');
+			str = (str).replace(/ (ft|feat).*?\-/i, ' -');
 			
 			if(/(ft|feat)/g.test(str))
 			{
@@ -285,10 +291,9 @@ function youtubeMethod(str){
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
-				site='youtube';
 				urll = googledata.responseData.results[0].unescapedUrl ;
 				
-				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':site});
+				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':'youtube'});
 				
 			}});
 			}
