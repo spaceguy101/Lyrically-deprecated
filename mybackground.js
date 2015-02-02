@@ -104,7 +104,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			str = str.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // capture "Track title"
 			str = (str).replace(/\s*\[.*?\]\s*/g, '');
 			str = (str).replace(/\s*\(.*?\)\s*/g, '');
-			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i];
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '')
@@ -259,7 +259,7 @@ function youtubeMethod(str){
 			str = (str).replace(/\s*\[.*?\]\s*/g, '');
 			str = (str).replace(/\s*\(.*?\)\s*/g, '');
 			
-			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/live/i];
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/live/i,/audio/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '')
