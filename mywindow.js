@@ -1,6 +1,7 @@
 window.onload = function() {
 	mainView = document.getElementById('main');
 	header = document.getElementById("header");
+	artist_name=document.getElementById('artist_name');
      $('.scrollbar').perfectScrollbar();
 	
 }
@@ -29,6 +30,8 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	$("#in").hide(400);
 	mainView.innerHTML = "Searching lyrics...";
 	getLyrics(request.artist, request.title, request.album);
+	$("#imgart").attr("src", request.imgsrc);
+	
 	}
 	
 	 else if(request.site == 'youtube'){
@@ -59,7 +62,8 @@ getLyrics(artist, title);
 function setHeader(artist, title)
 {
 	if (title){
-		header.innerHTML = title + ((artist)?' <em> by </em> ' + artist:"");
+		header.innerHTML = title;
+		artist_name.innerHTML=artist;
 	}
 }
 
@@ -72,16 +76,15 @@ function getLyrics(artist, title, album)
 		return;
 	}
 
-	/* If artist is missing try to get artist name from MusicBrainz */
 	if (!artist) {
-		mainView.innerHTML = 'Artist is missing! Searching for Artist Name on MusicBrainz...';
+		mainView.innerHTML = 'Artist is missing! ';
 		getArtistFromMusicBrainz(title, album);
 		
 		return;
 	}
 	
 	setHeader(artist, title);
-	mainView.innerHTML = "Searching lyrics for " + title + " by " + artist + "...";
+	mainView.innerHTML = "Searching....  ";
 	getURLFromLyricWiki(artist, title);
 
 }

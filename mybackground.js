@@ -3,6 +3,7 @@ title = '' ;
 album ='';
 site='others';
 urll='';
+imgsrc='';
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
 function checkForValidUrl(tabId,Info, tab) {
@@ -69,8 +70,9 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     artist = message.artist;
 	title = message.title.replace(/\s*\(.*?\)\s*/g, '');
 	album=message.album;
+	imgsrc=message.imgsrc;
 	site='others';
-	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site});
+	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
 	
 	//for youtube..
@@ -116,7 +118,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			
 			patt_str=new RegExp('-');
 			if(patt_str.test(str)){
-			//For sony vevo india//BROKEN !!! Fix this
+			
 			commaIndex = str.indexOf("-");
 			 title_sony = str.substring(0, commaIndex);
 			 album_sony = str.substring(commaIndex+1, str.length);
@@ -139,7 +141,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	
 	//from window
 	if(message.msg == 'getTrackInfo'){
-          sendResponse({'artist':artist ,'title':title,'album':album,'yt_url':urll,'site':site});
+          sendResponse({'artist':artist ,'title':title,'album':album,'yt_url':urll,'site':site,'imgsrc':imgsrc});
 	}
 });
 
@@ -170,13 +172,14 @@ function getDataFromMusicBrainz(title1) {
 				success : function(data, status) {
 				
 					title_arr=$(data).find("title");
-					title=title_arr[0].textContent;
 					
 					artistCredit = $(data).find("artist-credit");
-					if (artistCredit.length > 0 && title) {
+					if (artistCredit.length > 0 && title_arr.length > 0) {
+						
 						artist= artistCredit[0].getElementsByTagName("artist")[0]
 								.getElementsByTagName("name")[0].textContent;
 						
+						title=title_arr[0].textContent;
 						
 						console.log("Artist name retrieved from MusicBrainz: "
 								+ artist+'title  '+title);
@@ -187,7 +190,7 @@ function getDataFromMusicBrainz(title1) {
 						
 					} else {
 						console.log("MusicBrainz returned 0 results");
-						
+						searchGoogle(title1);
 						
 					}
 				}
@@ -218,14 +221,15 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 				},
 				success : function(data, status) {
 				
-					title_arr=$(data).find("title");
-					title=title_arr[0].textContent;
 					
+					title_arr=$(data).find("title");
+						
 					artistCredit = $(data).find("artist-credit");
-					if (artistCredit.length > 0 && title) {
+					if (artistCredit.length > 0 && title_arr.length >0) {
 						artist= artistCredit[0].getElementsByTagName("artist")[0]
 								.getElementsByTagName("name")[0].textContent;
 						
+						title=title_arr[0].textContent;
 						
 						console.log("Artist name retrieved from MusicBrainz: "
 								+ artist+'title  '+title);
@@ -236,7 +240,7 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 						
 					} else {
 						console.log("MusicBrainz returned 0 results");
-						
+						searchGoogle(title2);
 						
 					}
 				}
@@ -282,19 +286,23 @@ function youtubeMethod(str){
 			}
 			else
 			{
-			title=str;
-			
-			$.ajax({
+			searchGoogle(str);
+			}
+}
+
+function searchGoogle(title)
+{
+	$.ajax({
 			url: 'https://ajax.googleapis.com/ajax/services/search/web',
 			data: {v:'1.0',q: 'site:lyrics.wikia.com -"Page Ranking Information"' + title},
 			dataType: 'jsonp',
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
+				console.log('google');
 				urll = googledata.responseData.results[0].unescapedUrl ;
 				
 				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':'youtube'});
 				
-			}});
-			}
+			}})
 }
