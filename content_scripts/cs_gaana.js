@@ -29,4 +29,5 @@ function fetchTrackInfo(){
   
   
   ImgSrc =document.getElementsByClassName('playersongimg')[0].getElementsByTagName('img')[0].getAttribute('src');
+  
 }

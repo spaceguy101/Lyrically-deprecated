@@ -72,7 +72,6 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	album=message.album;
 	imgsrc=message.imgsrc;
 	site='others';
-	console.log(imgsrc);
 	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
 	

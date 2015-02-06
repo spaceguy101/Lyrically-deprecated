@@ -1,7 +1,7 @@
 var Name = '';
 var album = '';
 var Artist1 = '';
-var ImgSrc ='';
+var ImgSrc = '';
 
 
 var trackChangeInterval = setInterval(function() {
