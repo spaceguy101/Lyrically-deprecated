@@ -3,6 +3,7 @@ function fetchTrackInfo() {
 	Name = '';
 	album = '';
 	Artist1 = '';
+	ImgSrc='';
 
 	Name = document.getElementById('player-track-name').innerText;
 	album = document.getElementById('player-album-name').innerText;
@@ -17,4 +18,11 @@ function fetchTrackInfo() {
 			
 		}
 	}
+	
+	 
+	var img = document.getElementsByClassName('key-art')[0],
+	style = img.currentStyle || window.getComputedStyle(img, false),
+	ImgSrc = style.backgroundImage.slice(4, -1);
+	
+	
 }

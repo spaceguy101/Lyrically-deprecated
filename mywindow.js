@@ -12,6 +12,7 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 	if (request.site == 'others'){
 	$("#in").hide(400);
 	   getLyrics(request.artist, request.title, request.album);
+	   $("#imgart").attr("src", request.imgsrc);
 	  }
 	  
 	  
@@ -19,6 +20,7 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 	$("#in").hide(400);
 	header.innerHTML = request.title ;
 	getLyricsFromLyricWikiURL(request.yt_url);
+	$("#imgart").attr("src", request.imgsrc);
 	}
 });
 

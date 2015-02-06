@@ -5,6 +5,7 @@ function fetchTrackInfo(){
   album = '';
   Artist1 = '';
   artists = '';
+  ImgSrc ='';
   div_trackInfo = document.getElementById('trackInfo');
   
   if (!div_trackInfo || div_trackInfo.children.length === 0){
@@ -25,4 +26,7 @@ function fetchTrackInfo(){
   }
 
   if (Name === "Gaana Promotional"){Name = prevName;}
-  }
+  
+  
+  ImgSrc =document.getElementsByClassName('playersongimg')[0].getElementsByTagName('img')[0].getAttribute('src');
+}

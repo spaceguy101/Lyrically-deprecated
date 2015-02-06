@@ -8,11 +8,11 @@ margin: 0px;
 padding:0px;
 overflow: hidden; 
 border-left-style: solid;
-border-left-width: 1px;
-border-left-color: rgba(0, 0, 0, 0.19);
+border-left-width: 2px;
+border-left-color: #4285f4;
 border-right-style: solid;
-border-right-width: 1px;
-border-right-color: rgba(0, 0, 0, 0.19);
+border-right-width: 2px;
+border-right-color: #4285f4;
 }
 
 @font-face {
@@ -36,39 +36,45 @@ border-right-color: rgba(0, 0, 0, 0.19);
 
 #actionbar {
 
+	left:45 px;
 	display: block;
 	box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
 	width: 100%;
-    height: 45px;
+    height: 50px;
 	background-color:#4285f4;
 	margin:auto;
 	text-align: center;
 	}
 
 #header {
-	font-size: 20px;
-	fill: white;
+	
+	font-size: 25px;
 	color: white;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 #artist_name{
 	font-size: 12px;
-	fill: white;
 	color: white;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 }
 
-#imgart
-{
-border-radius:50% 50% 50% 50%;
+.img-holder {
 position: absolute;
 left: 0px;
 top:0px;
-width:40px;
-height:40px;
-}
+width:50px;
+height:50px;
+    }
+	
+	.img-holder img {
+    position:relative; 
+	width:50px;
+    height:50px;
+    }
+
+
 
 #input {
 font-size: 20px;

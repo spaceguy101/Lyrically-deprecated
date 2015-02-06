@@ -72,6 +72,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	album=message.album;
 	imgsrc=message.imgsrc;
 	site='others';
+	console.log(imgsrc);
 	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
 	
@@ -79,7 +80,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	else if(message.msg == 'youtube_data'){
 	 
 			
-			
+			imgsrc=message.imgsrc;
         	str=message.title;
 			//cleaning title
 			
@@ -185,7 +186,7 @@ function getDataFromMusicBrainz(title1) {
 								+ artist+'title  '+title);
 								
 					title = (title).replace(/\s*\(.*?\)\s*/g, '');
-					chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others'});		
+					chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others','imgsrc':imgsrc});		
 								
 						
 					} else {
@@ -235,7 +236,7 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 								+ artist+'title  '+title);
 								
 					title = (title).replace(/\s*\(.*?\)\s*/g, '');
-					chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others'});		
+					chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others','imgsrc':imgsrc});		
 								
 						
 					} else {
@@ -302,7 +303,7 @@ function searchGoogle(title)
 				console.log('google');
 				urll = googledata.responseData.results[0].unescapedUrl ;
 				
-				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':'youtube'});
+				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':'youtube','imgsrc':imgsrc});
 				
 			}})
 }

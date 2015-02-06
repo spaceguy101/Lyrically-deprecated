@@ -1,6 +1,7 @@
 var Name = '';
 var album = '';
 var Artist1 = '';
+var ImgSrc ='';
 
 
 var trackChangeInterval = setInterval(function() {
@@ -12,7 +13,7 @@ function checkTrackChange() {
 	var prevName = Name;
 	fetchTrackInfo();
 	if (Name !== prevName) {
-		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album});
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
 		
 	}
 }
