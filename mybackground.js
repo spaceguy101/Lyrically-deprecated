@@ -2,7 +2,6 @@ artist = '';
 title = '' ;
 album ='';
 site='others';
-urll='';
 imgsrc='';
 chrome.tabs.onUpdated.addListener(checkForValidUrl);
 
@@ -112,7 +111,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			str = (str).replace(str_arr[i], '')
 			}
 				
-			console.log(str);
+		
 			
 			
 			
@@ -122,7 +121,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 			commaIndex = str.indexOf("-");
 			 title_sony = str.substring(0, commaIndex);
 			 album_sony = str.substring(commaIndex+1, str.length);
-			console.log(title_sony + "  |  "+  album_sony);
+
 			getDataFromMusicBrainz_albumAndTitle(title_sony,album_sony);
 			}
 				else getDataFromMusicBrainz(str);
@@ -141,7 +140,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	
 	//from window
 	if(message.msg == 'getTrackInfo'){
-          sendResponse({'artist':artist ,'title':title,'album':album,'yt_url':urll,'site':site,'imgsrc':imgsrc});
+          sendResponse({'artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
 });
 
@@ -168,6 +167,7 @@ function getDataFromMusicBrainz(title1) {
 				type : "GET",
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log("Error calling MusicBrainz api!");
+					searchGoogle(title1);
 				},
 				success : function(data, status) {
 				
@@ -204,8 +204,7 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 	title2=title2.trim();
 	album2=album2.trim();
 	site='others';
-	//console.log('Title'+title2);
-	//console.log('Albym'+album2);
+	
 	if(album2)
 	query = 'recording:' + title2 + ' AND release:'+ album2 ;
 	else query = 'recording:' + title2 + ' AND country:IN';
@@ -218,6 +217,7 @@ function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
 				type : "GET",
 				error : function(jqXHR, textStatus, errorThrown) {
 					console.log("Error calling MusicBrainz api!");
+					searchGoogle(title2);
 				},
 				success : function(data, status) {
 				
@@ -270,8 +270,6 @@ function youtubeMethod(str){
 			}
 			//str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // 'Track title'
 			//str = str.replace(/^(|.*\s)"(.*)"(\s.*|)$/, '$2'); // 'Track title'
-			str = str.replace(/^[\/\s,:;~-\s"]+/, ''); // trim starting white chars and dash
-			str = str.replace(/[\/\s,:;~-\s"\s!]+$/, ''); // trim trailing white chars and dash 
 			
 			if(/-/.test(str)&&(str.indexOf('-')!=str.lastIndexOf('-')))
 			{
@@ -286,23 +284,15 @@ function youtubeMethod(str){
 			}
 			else
 			{
+			
 			searchGoogle(str);
 			}
 }
 
 function searchGoogle(title)
 {
-	$.ajax({
-			url: 'https://ajax.googleapis.com/ajax/services/search/web',
-			data: {v:'1.0',q: 'site:lyrics.wikia.com -"Page Ranking Information"' + title},
-			dataType: 'jsonp',
-			type: 'GET',
-			error: function(){},
-			success: function(googledata){
-				console.log('google');
-				urll = googledata.responseData.results[0].unescapedUrl ;
+				title=title.replace(/[:;~*]/g,'');
+				chrome.runtime.sendMessage({'msg':'change','title':title,'site':'youtube','imgsrc':imgsrc});
 				
-				chrome.runtime.sendMessage({'msg':'change','title':title,'yt_url':urll,'site':'youtube','imgsrc':imgsrc});
-				
-			}})
+			
 }

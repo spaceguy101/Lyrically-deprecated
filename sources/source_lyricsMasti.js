@@ -10,7 +10,7 @@ $.ajax({
 			error: function(){},
 			success: function(googledata){
 					console.log();
-				if(googledata.responseStatus == 200){
+				if(typeof googledata.responseData.results[0] !== 'undefined' && googledata.responseData.results[0] !== null ){
 				url_lyricsMasti = googledata.responseData.results[0].unescapedUrl ;
 				
 				document.getElementById('main').innerHTML = '</p> Trying URL : <a href="'
@@ -20,12 +20,11 @@ $.ajax({
 									
 				getLyricsFromLyricMastiURL(url_lyricsMasti,title,artist)	;	
 				}
-				else if(googledata.responseStatus == 400){
-					document.getElementById('main').innerHTML='Cant Search on Lyricsmasti.com';
+				else {
+					document.getElementById('main').innerHTML='Sorry.. :( </br> Lyrics not found on Lyricsmasti.com </br>'+ 'You May Try'+
+		  					'(<a target="_blank" href="https://www.google.com/search?q='+ title + ' lyrics">Search Google</a>).';
 				}
-				else{
-					document.getElementById('main').innerHTML='Google Api error';
-				}
+				
 							
 				
 			}});
@@ -43,7 +42,7 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 					
 					if (lyrics.length === 0) {
 						
-					document.getElementById('main').innerHTML= 'Sorry..:( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
+					document.getElementById('main').innerHTML= 'Sorry.. :( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
 		  					<li>(<a target="_blank" href="https://www.google.com/search?q='+ artist+ ' '+ title+ ' lyrics">Search Google</a>).</li>\
 		  					<br>'+ 
 							'<li>Contribute by adding lyrics at ' + '<a href="'+ 'http://lyrics.wikia.com/'+artist+':'+title+'?action=edit' + '" target="_blank">LyricWiki</a>. </li></ul>';

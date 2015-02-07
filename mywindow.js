@@ -11,6 +11,7 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 	
 	if (request.site == 'others'){
 	$("#in").hide(400);
+	$("#artist_name").show(400);
 	   getLyrics(request.artist, request.title, request.album);
 	   $("#imgart").attr("src", request.imgsrc);
 	  }
@@ -18,8 +19,9 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 	  
     else if(request.site == 'youtube'){
 	$("#in").hide(400);
+	$("#artist_name").hide(400);
 	header.innerHTML = request.title ;
-	getLyricsFromLyricWikiURL(request.yt_url);
+	searchLyricsWikia_google(request.title);
 	$("#imgart").attr("src", request.imgsrc);
 	}
 });
@@ -29,6 +31,7 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	if (request.msg == "change") {
 	
 	if (request.site == 'others'){
+	$("#artist_name").show(400);
 	$("#in").hide(400);
 	mainView.innerHTML = "Searching lyrics...";
 	getLyrics(request.artist, request.title, request.album);
@@ -38,10 +41,11 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	 else if(request.site == 'youtube'){
 	$("#in").hide(400);
+	$("#artist_name").hide(400);
 	mainView.innerHTML = "Searching lyrics...";
 	header.innerHTML = request.title ;
-	//console.log(request.yt_url);
-	getLyricsFromLyricWikiURL(request.yt_url);
+	searchLyricsWikia_google(request.title);
+	$("#imgart").attr("src", request.imgsrc);
 	}
 	
 	}

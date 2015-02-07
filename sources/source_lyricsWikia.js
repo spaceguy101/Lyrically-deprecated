@@ -33,7 +33,7 @@ function getURLFromLyricWiki(artist, title)
 							getLyricsFromLyricsMasti(title,artist);
 							throw new Error('LYRICS NOT FOUND');
 						}
-						getLyricsFromLyricWikiURL(songURL);
+						getLyricsFromLyricWikiURL(songURL,title,artist);
 					} catch (err) {
 						if (err.message != 'LYRICS NOT FOUND') {
 							document.getElementById('main').innerHTML = 'An error occurred while retrieving lyrics for "'
@@ -49,7 +49,7 @@ function getURLFromLyricWiki(artist, title)
 			});
 }
 
-function getLyricsFromLyricWikiURL(songURL) {
+function getLyricsFromLyricWikiURL(songURL,title,artist) {
 	$
 			.ajax({
 				url : songURL,
@@ -59,7 +59,7 @@ function getLyricsFromLyricWikiURL(songURL) {
 					lyrics = getLyricsFromRawHtml_wikia(songData);
 					
 					if (lyrics.length === 0) {
-						throw ('No lyrics found');
+						getLyricsFromLyricsMasti(title,artist);
 					} else {
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricWiki.  </a>'
