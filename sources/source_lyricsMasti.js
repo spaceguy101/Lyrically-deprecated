@@ -9,19 +9,22 @@ $.ajax({
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
-				if(googledata.responseData.results[0].unescapedUrl){
+					console.log();
+				if(googledata.responseStatus == 200){
 				url_lyricsMasti = googledata.responseData.results[0].unescapedUrl ;
 				
-				document.getElementById('main').innerHTML = '</p> Try URL <a href="'
+				document.getElementById('main').innerHTML = '</p> Trying URL : <a href="'
 								+ url_lyricsMasti + '" target="_blank">'
-									+ title
-									+ '" by "'
-									+ artist +'</a>';
+									+ url_lyricsMasti +
+									' </a>';
 									
-				getLyricsFromLyricMastiURL(url_lyricsMasti)	;	
+				getLyricsFromLyricMastiURL(url_lyricsMasti,title,artist)	;	
+				}
+				else if(googledata.responseStatus == 400){
+					document.getElementById('main').innerHTML='Cant Search on Lyricsmasti.com';
 				}
 				else{
-					document.getElementById('main').innerHTML='Cant find on mint';
+					document.getElementById('main').innerHTML='Google Api error';
 				}
 							
 				
@@ -29,7 +32,7 @@ $.ajax({
 }
 
 
-function getLyricsFromLyricMastiURL(songURL) {
+function getLyricsFromLyricMastiURL(songURL,title,artist) {
 	$
 			.ajax({
 				url : songURL,
@@ -39,7 +42,13 @@ function getLyricsFromLyricMastiURL(songURL) {
 					lyrics = getLyricsFromRawHtml_masti(songData);
 					
 					if (lyrics.length === 0) {
-						throw ('No lyrics found on mint');
+						
+					document.getElementById('main').innerHTML= 'Sorry..:( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
+		  					<li>(<a target="_blank" href="https://www.google.com/search?q='+ artist+ ' '+ title+ ' lyrics">Search Google</a>).</li>\
+		  					<br>'+ 
+							'<li>Contribute by adding lyrics at ' + '<a href="'+ 'http://lyrics.wikia.com/'+artist+':'+title+'?action=edit' + '" target="_blank">LyricWiki</a>. </li></ul>';
+										
+										
 					} else {
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricMasti.com  </a>'
