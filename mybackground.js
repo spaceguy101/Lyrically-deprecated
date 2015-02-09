@@ -1,7 +1,7 @@
 artist = '';
 title = '' ;
 album ='';
-site='others';
+site='';
 imgsrc='';
 chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
  
@@ -11,53 +11,24 @@ chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
 	||(tab.url.indexOf('rdio.com') > -1) && (Info.status == "complete")
 	||(tab.url.indexOf('hungama.com') > -1) && (Info.status == "complete")
 	||(tab.url.indexOf('youtube.com/watch') > -1) && (Info.status == "complete")
-	||(tab.url.indexOf('bop.fm') > -1) && (Info.status == "complete"))
+	||(tab.url.indexOf('guvera') > -1) && (Info.status == "complete")
+	||(tab.url.indexOf('raaga') > -1) && (Info.status == "complete")
+	||(tab.url.indexOf('grooveshark') > -1) && (Info.status == "complete")
+	||(tab.url.indexOf('spotify') > -1) && (Info.status == "complete"))
     chrome.pageAction.show(tabId);
 });
 
+chrome.runtime.onInstalled.addListener(checkIfPanel);
+
 chrome.pageAction.onClicked.addListener(iconClicked);
 
-function iconClicked (tab,tabId){
-
+function iconClicked (tab,tabId)
 {
+
+
 		chrome.windows.create({'url': 'mywindow.html', 'type': 'panel','width': 350,
-		    'height': 530}, function(windowInfo) {
-    var _isPanelEnabled;
-var _isPanelEnabledQueue = [];
-function getPanelFlagState(callback) {
-    if (typeof callback != 'function') throw Error('callback function required');
-    if (typeof _isPanelEnabled == 'boolean') {
-        callback(_isPanelEnabled); // Use cached result
-        return;
-    }
-    _isPanelEnabledQueue.push(callback);
+'height': 530});
 
-    if (_isPanelEnabled == 'checking')
-        return;
-
-    _isPanelEnabled = 'checking';
-    chrome.windows.create({
-        url: 'about:blank',
-        type: 'panel'
-    }, function(windowInfo) {
-        _isPanelEnabled = windowInfo.alwaysOnTop;
-        chrome.windows.remove(windowInfo.id);
-
-        // Handle all queued callbacks
-        while (callback = _isPanelEnabledQueue.shift()) {
-            callback(windowInfo.alwaysOnTop);
-        }
-    });
-}
-
-getPanelFlagState(function(isEnabled) {
-if(!isEnabled){
-	chrome.tabs.create({url: "chrome://flags/#enable-panels"}, null);
-    chrome.tabs.create({'url': 'popup.html'});
-	}
-});
-});
-}
 }
 
 
@@ -94,6 +65,42 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 
 
 
+function checkIfPanel (windowInfo) {
+    var _isPanelEnabled;
+var _isPanelEnabledQueue = [];
+function getPanelFlagState(callback) {
+    if (typeof callback != 'function') throw Error('callback function required');
+    if (typeof _isPanelEnabled == 'boolean') {
+        callback(_isPanelEnabled); // Use cached result
+        return;
+    }
+    _isPanelEnabledQueue.push(callback);
 
+    if (_isPanelEnabled == 'checking')
+        return;
+
+    _isPanelEnabled = 'checking';
+    chrome.windows.create({
+        url: 'about:blank',
+        type: 'panel'
+    }, function(windowInfo) {
+        _isPanelEnabled = windowInfo.alwaysOnTop;
+        chrome.windows.remove(windowInfo.id);
+
+        // Handle all queued callbacks
+        while (callback = _isPanelEnabledQueue.shift()) {
+            callback(windowInfo.alwaysOnTop);
+        }
+    });
+}
+
+getPanelFlagState(function(isEnabled) {
+if(!isEnabled){
+	chrome.tabs.create({url: "chrome://flags/#enable-panels"}, null);
+    chrome.tabs.create({'url': 'popup.html'});
+	}
+	else chrome.tabs.create({'url': 'popup1.html'});
+});
+}
 
 

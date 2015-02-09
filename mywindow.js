@@ -113,7 +113,7 @@ function processYoutubeData(str){
 			str = (str).replace(/ (ft|feat|Feat).*/i, '');
 			}
 			
-			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i,/latest/i,/unplugged/i,/bollywood/i,/sing/i,/along/i,/\s+(HD|HQ)\s*$/,/\s*\(\s*[0-9]{4}\s*\)/i];
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i,/latest/i,/unplugged/i,/bollywood/i,/sing/i,/along/i,/\s+(HD|HQ)\s*$/i,/\s*\(\s*[0-9]{4}\s*\)/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '');
@@ -140,12 +140,14 @@ function processYoutubeData(str){
 			if(patt_str.test(str)){
 			
 			commaIndex = str.indexOf("-");
-			 title_sony = str.substring(0, commaIndex);
-			 album_sony = str.substring(commaIndex+1, str.length);
+			 var title_sony = str.substring(0, commaIndex);
+			 var album_sony = str.substring(commaIndex+1, str.length);
 
-			getDataFromMusicBrainz_albumAndTitle(title_sony,album_sony);
+			getDataFromMusicBrainz_forYoutube(title_sony,album_sony);
 			}
-				else getDataFromMusicBrainz(str);
+				else getDataFromMusicBrainz_forYoutube(str,'');
+				
+
 			}
 			
 			
@@ -163,7 +165,7 @@ function processYoutubeData(str){
 			commaIndex = str.indexOf("-");
 			 title_sony = str.substring(0, commaIndex);
 			 album_sony = str.substring(commaIndex+1, str.length);
-			getDataFromMusicBrainz_albumAndTitle(title_sony,album_sony);
+			getDataFromMusicBrainz_forYoutube(title_sony,album_sony);
 		
 			}
 			else searchGoogle(str);
@@ -185,50 +187,8 @@ function searchGoogle(title)
 			
 }
 
-function getDataFromMusicBrainz(title1) {
 
-	query = 'recording:' + title1 + ' AND country:IN';
-
-	$
-			.ajax({
-				url : "http://musicbrainz.org/ws/2/recording",
-				data : {
-					query : query
-				},
-				type : "GET",
-				error : function(jqXHR, textStatus, errorThrown) {
-					
-					searchGoogle(title1);
-				},
-				success : function(data, status) {
-				
-					title_arr=$(data).find("title");
-					
-					artistCredit = $(data).find("artist-credit");
-					if (artistCredit.length > 0 && title_arr.length > 0) {
-						
-						artist= artistCredit[0].getElementsByTagName("artist")[0]
-								.getElementsByTagName("name")[0].textContent;
-						
-						title=title_arr[0].textContent;
-						
-					title = (title).replace(/\s*\(.*?\)\s*/g, '');
-					//chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others','imgsrc':imgsrc});		
-								getLyrics(artist, title, album);
-						
-					} else {
-						
-						searchGoogle(title1);
-						
-					}
-				}
-
-			});
-			
-}
-
-
-function getDataFromMusicBrainz_albumAndTitle(title2,album2) {
+function getDataFromMusicBrainz_forYoutube(title2,album2) {
 	title2=title2.trim();
 	album2=album2.trim();
 	
