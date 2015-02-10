@@ -22,7 +22,7 @@ chrome.runtime.onInstalled.addListener(checkIfPanel);
 
 chrome.pageAction.onClicked.addListener(iconClicked);
 
-function iconClicked (tab,tabId)
+function iconClicked ()
 {
 
 
@@ -38,7 +38,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     artist = message.artist;
 	title = message.title.replace(/\s*\(.*?\)\s*/g, '').replace(/remix/i,'').replace(/ -/,'');
 	album=message.album;
-	imgsrc=message.imgsrc;
+	imgsrc=message.imgsrc.replace('maxresdefault','default');
 	site='others';
 	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
@@ -102,5 +102,3 @@ if(!isEnabled){
 	else chrome.tabs.create({'url': 'popup1.html'});
 });
 }
-
-

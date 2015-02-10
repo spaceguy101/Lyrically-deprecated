@@ -1,5 +1,4 @@
 body{
-font-family: sans-serif;
 -webkit-user-select: none;
 text-rendering: optimizeLegibility;
 -webkit-font-smoothing: antialiased;
@@ -34,24 +33,35 @@ border-right-color: #4285f4;
   font-style: normal;
 }
 
-#actionbar {
+#header-wrap{
 
-	left:45 px;
-	display: block;
-	box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
-	width: 100%;
+position: fixed;
+top:0px;
+height:50px;
+display:block;
+width:100%;
+box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
+background-color:#4285f4;
+}
+
+#actionbar {
+	position: fixed;
+	left:55px;
+	right:0px;
+
+	width: 260px;
     height: 50px;
 	background-color:#4285f4;
-	margin:auto;
 	text-align: center;
 	}
 
 #header {
 	
-	font-size: 25px;
+	width:50px;
+	font-size: 20px;
 	color: white;
 	white-space: nowrap;
-	text-overflow: ellipsis;
+	text-overflow: hidden;
 }
 #artist_name{
 	font-size: 12px;
@@ -61,25 +71,30 @@ border-right-color: #4285f4;
 }
 
 .img-holder {
-position: absolute;
+position: fixed;
 left: 0px;
 top:0px;
-width:50px;
+width:55px;
 height:50px;
     }
 	
 	.img-holder img {
     position:relative; 
-	width:50px;
+	width:55px;
     height:50px;
     }
 
+#search{
+	fill:white;
+	margin:auto;
+position: fixed;
+background-color:#4285f4;
+width:40px;
+height:50px;
+top:0px;
+right:0px;
 
-
-a{
-	color: #074E8C;
 }
-
 
 #frame
 {
@@ -90,7 +105,7 @@ height: 430px;
 
 .scrollbar
 {	
-	
+	top:50px;
 	height: 418px;
 	width: 100%;
 	float: left;
@@ -105,28 +120,6 @@ height: 430px;
 	box-sizing: border-box;
 	line-height: 1.7;
 	user-select: none;
-	position: relative;
+	position: fixed;
 	font-weight: 400;
-}
-
-
-.btn {
-  background: #3498db;
-  background-image: -webkit-linear-gradient(top, #3498db, #2980b9);
-  -webkit-border-radius: 6;
-  -moz-border-radius: 6;
-  border-radius: 6px;
-  text-shadow: 2px 3px 1px #666666;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 13px;
-  background: #3498db;
-  padding: 3px 6px 3px 6px;
-  text-decoration: none;
-}
-
-.btn:hover {
-  background: #3cb0fd;
-  background-image: -webkit-linear-gradient(top, #3cb0fd, #3498db);
-  text-decoration: none;
 }

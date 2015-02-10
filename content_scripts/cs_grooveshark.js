@@ -4,7 +4,8 @@ function fetchTrackInfo(){
   album = '';
   Artist1 = '';
   
-  songName = $('a.now-playing-link.song').text().trim();
-  firstArtist = $('a.now-playing-link.artist').text().trim();
+  Name = $('a.now-playing-link.song').text().trim();
+  Artist1 = $('a.now-playing-link.artist').text().trim();
   ImgSrc=$('#now-playing').find('.img-container img').attr('src');
+  
 }
