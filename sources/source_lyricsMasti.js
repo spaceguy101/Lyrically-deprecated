@@ -21,9 +21,12 @@ $.ajax({
 				getLyricsFromLyricMastiURL(url_lyricsMasti,title,artist)	;	
 				}
 				else {
-					document.getElementById('main').innerHTML='Sorry.. :( </br> Lyrics not found on Lyricsmasti.com </br>'+ 'You May Try'+
-		  					'(<a target="_blank" href="https://www.google.com/search?q='+ title + ' lyrics">Search Google</a>).';
-				}
+					document.getElementById('main').innerHTML= 'Sorry.. :( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
+		  					<li>(<a target="_blank" href="https://www.google.com/search?q='+ artist+ ' '+ title+ ' lyrics">Search Google</a>).</li>\
+		  					<br>'+ 
+							'<li>Contribute by adding lyrics at ' + '<a href="'+ 'http://lyrics.wikia.com/'+artist+':'+title+'?action=edit' + '" target="_blank">LyricWiki</a>. </li></ul>';
+										
+										}
 				
 							
 				

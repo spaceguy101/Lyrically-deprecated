@@ -12,6 +12,10 @@ border-left-color: #4285f4;
 border-right-style: solid;
 border-right-width: 2px;
 border-right-color: #4285f4;
+
+
+
+
 }
 
 @font-face {
@@ -32,6 +36,8 @@ border-right-color: #4285f4;
   font-weight: 700;
   font-style: normal;
 }
+
+
 
 #header-wrap{
 
@@ -56,7 +62,7 @@ background-color:#4285f4;
 	}
 
 #header {
-	
+	position:relative;
 	width:50px;
 	font-size: 20px;
 	color: white;
@@ -85,8 +91,10 @@ height:50px;
     }
 
 #search{
+
 	fill:white;
-	margin:auto;
+	margin-left: auto;
+    margin-right: auto;
 position: fixed;
 background-color:#4285f4;
 width:40px;
@@ -94,6 +102,13 @@ height:50px;
 top:0px;
 right:0px;
 
+
+}
+#svg{
+display: inline-flex;
+cursor: pointer;
+  margin-left: 10px;
+  margin-top: 12px;
 }
 
 #frame
@@ -122,4 +137,186 @@ height: 430px;
 	user-select: none;
 	position: fixed;
 	font-weight: 400;
+}
+
+
+
+
+
+
+
+.popup {
+	box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);  
+	border-style: solid;
+    border-width: 1px;
+	border-color: #4285f9;
+    position:fixed;
+    opacity:0.9;
+    top:50px;
+    right:0px;  
+    margin:auto;
+    width:100%;
+    height:230px;
+    padding:10px;
+    background-color:rgb(255,255,255);
+    z-index:100000000000000000;
+}
+
+
+#title{
+	margin-top:15px;
+	 margin-bottom:40px; 
+}
+#artist{
+	margin-bottom:25px; 
+}
+
+
+.btn {
+  position: fixed;
+
+  display: block;
+  padding: 0;
+
+  overflow: hidden;
+
+  border-width: 0;
+  outline: none;
+  border-radius: 2px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .6);
+  
+  background-color: #2ecc71;
+  color: #ecf0f1;
+  
+  transition: background-color .3s;
+}
+
+.btn:hover, .btn:focus {
+  background-color: #27ae60;
+}
+
+.btn > * {
+  position: relative;
+}
+
+.btn span {
+  display: block;
+  padding: 8px 16px;
+}
+
+.btn:before {
+  content: "";
+  
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  
+  display: block;
+  width: 0;
+  padding-top: 0;
+    
+  border-radius: 100%;
+  
+  background-color: rgba(236, 240, 241, .3);
+  
+  -webkit-transform: translate(-50%, -50%);
+ 
+}
+
+.btn:active:before {
+  width: 120%;
+  padding-top: 120%;
+  
+  transition: width .2s ease-out, padding-top .2s ease-out;
+}
+
+/* Styles, not important */
+*, *:before, *:after {
+  box-sizing: border-box;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+.group 			  { 
+  position:relative; 
+ 
+}
+input 				{
+  font-size:18px;
+  padding:10px 10px 10px 5px;
+  display:block;
+  width:100%;
+  border:none;
+  border-bottom:1px solid #757575;
+}
+input:focus 		{ outline:none; }
+
+/* LABEL ======================================= */
+label 				 {
+  color:#999; 
+  font-size:18px;
+  font-weight:normal;
+  position:absolute;
+  pointer-events:none;
+  left:5px;
+  top:10px;
+  transition:0.2s ease all; 
+  -moz-transition:0.2s ease all; 
+  -webkit-transition:0.2s ease all;
+}
+
+/* active state */
+input:focus ~ label, input:valid ~ label 		{
+  top:-20px;
+  font-size:14px;
+  color:#5264AE;
+}
+
+
+
+/* active state */
+input:focus ~ .bar:before, input:focus ~ .bar:after {
+  width:50%;
+}
+
+/* HIGHLIGHTER ================================== */
+.highlight {
+  position:absolute;
+  height:60%; 
+  width:100px; 
+  top:25%; 
+  left:0;
+  pointer-events:none;
+  opacity:0.5;
+}
+
+/* active state */
+input:focus ~ .highlight {
+  -webkit-animation:inputHighlighter 0.3s ease;
+  -moz-animation:inputHighlighter 0.3s ease;
+  animation:inputHighlighter 0.3s ease;
+}
+
+/* ANIMATIONS ================ */
+@-webkit-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@-moz-keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
+}
+@keyframes inputHighlighter {
+	from { background:#5264AE; }
+  to 	{ width:0; background:transparent; }
 }

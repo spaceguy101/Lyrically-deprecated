@@ -9,25 +9,61 @@ window.onload = function() {
 	
 }
 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('svg').addEventListener('click', openPopup);
+});
+
+
+
+function openPopup() {
+   $('#test').toggle( 400,"swing");
+}
+
+function closePopup() {
+   
+    $('#test').hide(400,"swing");
+}
+
+
+
+document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('bttn').addEventListener('click', input);
+});
+
+function input()
+{
+$("#imgart").attr("src", 'images/icon64.png')
+artist = document.getElementById("artist").value;
+title = document.getElementById("title").value;
+getLyrics(artist, title);
+}
+	
+
+
+
 chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 
 	
 	if (request.site == 'others'){
-	$(".in").hide(400);
+	
 	
 	   getLyrics(request.artist, request.title, request.album);
-	   $("#imgart").attr("src", request.imgsrc);
+	 
 	  }
 	  
 	  
     else if(request.site == 'youtube'){
-	$(".in").hide(400);
+	
 	
 	header.innerHTML = request.title ;
 	processYoutubeData(request.title);
 	//searchLyricsWikia_google(request.title);
-	$("#imgart").attr("src", request.imgsrc);
+
 	}
+
+	  $("#imgart").attr("src", request.imgsrc);
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender,
@@ -36,37 +72,25 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	if (request.site == 'others'){
 	
-	$(".in").hide(400);
+	
 	mainView.innerHTML = "Searching lyrics...";
 	getLyrics(request.artist, request.title, request.album);
-	$("#imgart").attr("src", request.imgsrc);
+	
 	
 	}
 	
 	 else if(request.site == 'youtube'){
-	$(".in").hide(400);
+	
 	
 	mainView.innerHTML = "Searching lyrics...";
 	processYoutubeData(request.title);
 	//searchLyricsWikia_google(request.title);
-	$("#imgart").attr("src", request.imgsrc);
 	}
 	
+	$("#imgart").attr("src", request.imgsrc);
 	}
 });
 
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('button').addEventListener('click', input);
-});
-
-function input()
-{
-artist = document.getElementById("artist").value;
-title = document.getElementById("title").value;
-getLyrics(artist, title);
-}
-		
-		
 
 
 function setHeader(artist, title)
@@ -82,7 +106,7 @@ function setHeader(artist, title)
 function getLyrics(artist, title, album) 
 {
 	
-	
+	closePopup();
  
 	if (!title) {
 		mainView.innerHTML = 'No Song title. Cannot search for lyrics :-(';
@@ -106,6 +130,8 @@ function getLyrics(artist, title, album)
 
 
 function processYoutubeData(str){
+
+	closePopup();
 	
 	str = (str).replace(/ (Feat|ft|feat).*?\-/i, '');
 			if(/(ft|feat|Feat)/g.test(str))
@@ -178,7 +204,7 @@ function processYoutubeData(str){
 
 function searchGoogle(title)
 {
-				$("#artist_name").hide(400);
+				$("#artist_name").css("display", "none");
 				title=title.replace(/[:;~*]/g,'');
 				header.innerHTML = title ;
 				//chrome.runtime.sendMessage({'msg':'change','title':title,'site':'youtube','imgsrc':imgsrc});
