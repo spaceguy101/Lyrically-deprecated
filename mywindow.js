@@ -34,7 +34,15 @@ document.addEventListener('DOMContentLoaded', function () {
 
 function input()
 {
-$("#imgart").attr("src", 'images/icon64.png')
+
+	
+
+
+$("#imgart").attr("src", 'images/icon64.png');
+
+document.getElementById("header-wrap").style.backgroundColor =
+document.body.style.borderColor ='#4285f4';
+
 artist = document.getElementById("artist").value;
 title = document.getElementById("title").value;
 getLyrics(artist, title);
@@ -57,13 +65,15 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
     else if(request.site == 'youtube'){
 	
 	
-	header.innerHTML = request.title ;
+	header.innerHTML = '' ;
 	processYoutubeData(request.title);
 	//searchLyricsWikia_google(request.title);
 
 	}
 
 	  $("#imgart").attr("src", request.imgsrc);
+
+	
 });
 
 chrome.runtime.onMessage.addListener(function(request, sender,
@@ -88,6 +98,7 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	}
 	
 	$("#imgart").attr("src", request.imgsrc);
+
 	}
 });
 
@@ -123,6 +134,7 @@ function getLyrics(artist, title, album)
 	setHeader(artist, title);
 	mainView.innerHTML = "Searching....  ";
 	getURLFromLyricWiki(artist, title);
+	changeToDominantColor();
 
 }
 
@@ -132,14 +144,14 @@ function getLyrics(artist, title, album)
 function processYoutubeData(str){
 
 	closePopup();
-	
-	str = (str).replace(/ (Feat|ft|feat).*?\-/i, '');
-			if(/(ft|feat|Feat)/g.test(str))
+	changeToDominantColor();
+	str = (str).replace(/ (Feat|ft|feat|Ft).*?\-/i, '');
+			if(/(ft|feat|Feat|Ft)/gi.test(str))
 			{
-			str = (str).replace(/ (ft|feat|Feat).*/i, '');
+			str = (str).replace(/ (ft|feat|Feat|Ft).*/i, '');
 			}
 			
-			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i,/latest/i,/unplugged/i,/bollywood/i,/sing/i,/along/i,/\s+(HD|HQ)\s*$/i,/\s*\(\s*[0-9]{4}\s*\)/i];
+			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i,/latest/i,/unplugged/i,/bollywood/i,/sing/i,/along/i,/\s+(HD|HQ)\s*$/i,/\s*\(\s*[0-9]{4}\s*\)/i,/remix/i];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '');
@@ -260,4 +272,55 @@ function getDataFromMusicBrainz_forYoutube(title2,album2) {
 				}
 
 			});
+}
+
+
+function changeToDominantColor(){
+
+var prevSrc='a';
+if(prevSrc!== ($("#imgart").attr('src')))
+{
+	var img = new Image();
+
+img.src = $("#imgart").attr('src');
+prevSrc=img.src;
+
+
+
+var canvas=document.createElement("canvas");
+
+canvas.height=img.height;
+canvas.width=img.width;
+
+
+var ctx=canvas.getContext("2d");
+
+ctx.drawImage(img,0,0);
+var imgPixels = ctx.getImageData(0,0,canvas.width,canvas.height);
+
+
+var r=0;
+var g=0;
+var b=0;
+var count=0;
+
+var px_data= imgPixels.data;
+  for(var i = 0; i<px_data.length; i=i+4*10){  
+        
+            count++;
+           r=  r+px_data[i];
+           g=  g+ px_data[i + 1] ;
+           b=  b+ px_data[i + 2]  ;  
+        }  
+
+
+r=Math.floor(r/count);
+g=Math.floor(g/count);
+b=Math.floor(b/count);
+
+document.getElementById("header-wrap").style.backgroundColor = 
+document.body.style.borderColor =
+document.body.style.borderColor = 'rgb(' + r + ',' + g + ',' + b + ')';
+
+}
 }

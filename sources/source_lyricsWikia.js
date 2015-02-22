@@ -16,8 +16,10 @@ function getURLFromLyricWiki(artist, title)
 				error : function(jqXHR, textStatus, errorThrown) {
 					mainView.innerHTML = 'An error occurred while retrieving lyrics for "'
 							+ title + '" by "' + artist + '". Please retry.';
+							
 				},
 				success : function(lyricsData, status) {
+					
 					try {
 						// Grab lyrics wikia song url
 						var songURL = $(lyricsData).find("url").text();
@@ -73,6 +75,9 @@ function getLyricsFromLyricWikiURL(songURL,title,artist) {
 
 function getLyricsFromRawHtml_wikia(data) 
 {
+
+	
+	
 	var filter = function() 
 	{return this.nodeType === Node.TEXT_NODE|| $(this).is('p, br, i, b, strong, em');};
 	return $('<div>').append(

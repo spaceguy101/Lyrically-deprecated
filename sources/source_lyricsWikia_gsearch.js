@@ -16,3 +16,15 @@ $.ajax({
 				}
 			}})
 }
+
+
+
+
+
+
+/*
+ *chrome.runtime.getBackgroundPage(function (backgroundPage) {
+ *   backgroundPage.search(title);
+ *});
+ *
+ */

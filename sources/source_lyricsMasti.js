@@ -73,3 +73,22 @@ function getLyricsFromRawHtml_masti(data)
 			$(data).find('#lcontent1').contents().filter(filter)).remove()
 			.html();
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+ *chrome.runtime.getBackgroundPage(function (backgroundPage) {
+ *   backgroundPage.search(title);
+ *});
+ *
+ */

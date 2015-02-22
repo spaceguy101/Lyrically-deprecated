@@ -1,7 +1,8 @@
 body{
--webkit-user-select: none;
+
 text-rendering: optimizeLegibility;
--webkit-font-smoothing: antialiased;
+height: 460px;
+
 font: 15px 'Roboto';
 margin: 0px;
 padding:0px;
@@ -12,9 +13,9 @@ border-left-color: #4285f4;
 border-right-style: solid;
 border-right-width: 2px;
 border-right-color: #4285f4;
-
-
-
+border-bottom-style: solid;
+border-bottom-width: 2px;
+border-bottom-color: #4285f4;
 
 }
 
@@ -48,6 +49,7 @@ display:block;
 width:100%;
 box-shadow: 0 0 2px rgba(0, 0, 0, 0.14), 2px 2px 4px rgba(0, 0, 0, 0.28);
 background-color:#4285f4;
+transition: background-color 2.5s ease;
 }
 
 #actionbar {
@@ -57,7 +59,7 @@ background-color:#4285f4;
 
 	width: 260px;
     height: 50px;
-	background-color:#4285f4;
+
 	text-align: center;
 	}
 
@@ -82,6 +84,7 @@ left: 0px;
 top:0px;
 width:55px;
 height:50px;
+box-shadow: 0 0 2px rgba(0, 0, 0, 0.17), 2px 2px 4px rgba(0, 0, 0, 0.30);
     }
 	
 	.img-holder img {
@@ -96,7 +99,7 @@ height:50px;
 	margin-left: auto;
     margin-right: auto;
 position: fixed;
-background-color:#4285f4;
+
 width:40px;
 height:50px;
 top:0px;
@@ -113,15 +116,17 @@ cursor: pointer;
 
 #frame
 {
-min-height: 430px;
-max-height: 430px;
-height: 430px;
+  transition: all 0.5s ease;
+min-height: 410px;
+max-height: 410px;
+height: 410px;
 }
 
 .scrollbar
 {	
+  transition: all 0.5s ease;
 	top:50px;
-	height: 418px;
+	height: 410px;
 	width: 100%;
 	float: left;
 	margin-bottom: auto;

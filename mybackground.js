@@ -27,7 +27,7 @@ function iconClicked ()
 
 
 		chrome.windows.create({'url': 'mywindow.html', 'type': 'panel','width': 350,
-'height': 530});
+'height': 460});
 
 }
 
@@ -101,4 +101,8 @@ if(!isEnabled){
 	}
 	else chrome.tabs.create({'url': 'popup1.html'});
 });
+}
+
+function search(){
+	window.open("https://encrypted.google.com/#q=site:lyricsmasti.com+Lonely", '_blank', 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', '')
 }
