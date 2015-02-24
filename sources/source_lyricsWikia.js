@@ -37,6 +37,9 @@ function getURLFromLyricWiki(artist, title)
 						}
 						getLyricsFromLyricWikiURL(songURL,title,artist);
 					} catch (err) {
+
+						spinner('hide');
+						
 						if (err.message != 'LYRICS NOT FOUND') {
 							document.getElementById('main').innerHTML = 'An error occurred while retrieving lyrics for "'
 									+ title
@@ -63,6 +66,9 @@ function getLyricsFromLyricWikiURL(songURL,title,artist) {
 					if (lyrics.length === 0) {
 						getLyricsFromLyricsMasti(title,artist);
 					} else {
+
+						spinner('hide');
+
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricWiki.  </a>'
 								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';

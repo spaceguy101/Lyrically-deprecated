@@ -146,6 +146,30 @@ height: 410px;
 
 
 
+.spinner_container{
+	
+	align-content: center; 
+
+  top:50px;
+  opacity:0.7;
+  background:white;
+  height:410px;
+  width:100%;
+  position:fixed;
+   margin: 0 auto;
+  text-align: center;
+  
+
+}
+
+.svg-loader{
+
+  
+  height: 40vmin;
+  padding: 3vmin 20vmin;
+  vertical-align: top;
+}
+
 
 
 

@@ -9,7 +9,10 @@ $.ajax({
 			type: 'GET',
 			error: function(){},
 			success: function(googledata){
-					console.log();
+					
+
+				try{
+
 				if(typeof googledata.responseData.results[0] !== 'undefined' && googledata.responseData.results[0] !== null ){
 				url_lyricsMasti = googledata.responseData.results[0].unescapedUrl ;
 				
@@ -21,13 +24,18 @@ $.ajax({
 				getLyricsFromLyricMastiURL(url_lyricsMasti,title,artist)	;	
 				}
 				else {
+
+					spinner('hide');
+
 					document.getElementById('main').innerHTML= 'Sorry.. :( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
 		  					<li>(<a target="_blank" href="https://www.google.com/search?q='+ artist+ ' '+ title+ ' lyrics">Search Google</a>).</li>\
 		  					<br>'+ 
 							'<li>Contribute by adding lyrics at ' + '<a href="'+ 'http://lyrics.wikia.com/'+artist+':'+title+'?action=edit' + '" target="_blank">LyricWiki</a>. </li></ul>';
 										
 										}
-				
+				}catch(err){
+					spinner('hide');
+				}
 							
 				
 			}});
@@ -44,6 +52,9 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 					lyrics = getLyricsFromRawHtml_masti(songData);
 					
 					if (lyrics.length === 0) {
+
+
+						spinner('hide');
 						
 					document.getElementById('main').innerHTML= 'Sorry.. :( </br> Lyrics not found for "'+ title + '" by '+ artist + '</br></br> <b>You May :</b></br> <ul>\
 		  					<li>(<a target="_blank" href="https://www.google.com/search?q='+ artist+ ' '+ title+ ' lyrics">Search Google</a>).</li>\
@@ -52,6 +63,9 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 										
 										
 					} else {
+
+						spinner('hide');
+
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricMasti.com  </a>'
 								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';

@@ -1,3 +1,4 @@
+
 window.onload = function() {
 	mainView = document.getElementById('main');
 	header = document.getElementById("header");
@@ -7,6 +8,8 @@ window.onload = function() {
 	title = '' ;
 	album ='';
 	
+
+
 }
 
 
@@ -72,6 +75,7 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 	}
 
 	  $("#imgart").attr("src", request.imgsrc);
+	  changeToDominantColor(request.imgsrc);
 
 	
 });
@@ -83,7 +87,8 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	if (request.site == 'others'){
 	
 	
-	mainView.innerHTML = "Searching lyrics...";
+	//mainView.innerHTML = "Searching lyrics...";
+	spinner('show');
 	getLyrics(request.artist, request.title, request.album);
 	
 	
@@ -92,12 +97,14 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	 else if(request.site == 'youtube'){
 	
 	
-	mainView.innerHTML = "Searching lyrics...";
+	//mainView.innerHTML = "Searching lyrics...";
+	spinner('show');
 	processYoutubeData(request.title);
 	//searchLyricsWikia_google(request.title);
 	}
 	
 	$("#imgart").attr("src", request.imgsrc);
+	changeToDominantColor(request.imgsrc);
 
 	}
 });
@@ -120,6 +127,7 @@ function getLyrics(artist, title, album)
 	closePopup();
  
 	if (!title) {
+		spinner('hide');
 		mainView.innerHTML = 'No Song title. Cannot search for lyrics :-(';
 		return;
 	}
@@ -132,9 +140,9 @@ function getLyrics(artist, title, album)
 	}
 	
 	setHeader(artist, title);
-	mainView.innerHTML = "Searching....  ";
+	//mainView.innerHTML = "Searching....  ";
 	getURLFromLyricWiki(artist, title);
-	changeToDominantColor();
+	
 
 }
 
@@ -144,7 +152,7 @@ function getLyrics(artist, title, album)
 function processYoutubeData(str){
 
 	closePopup();
-	changeToDominantColor();
+	
 	str = (str).replace(/ (Feat|ft|feat|Ft).*?\-/i, '');
 			if(/(ft|feat|Feat|Ft)/gi.test(str))
 			{
@@ -275,15 +283,15 @@ function getDataFromMusicBrainz_forYoutube(title2,album2) {
 }
 
 
-function changeToDominantColor(){
+function changeToDominantColor(srcImg){
 
-var prevSrc='a';
-if(prevSrc!== ($("#imgart").attr('src')))
+
+if(srcImg)
 {
 	var img = new Image();
 
-img.src = $("#imgart").attr('src');
-prevSrc=img.src;
+img.src =srcImg;
+
 
 
 
@@ -296,6 +304,7 @@ canvas.width=img.width;
 var ctx=canvas.getContext("2d");
 
 ctx.drawImage(img,0,0);
+if(canvas.height && canvas.width){
 var imgPixels = ctx.getImageData(0,0,canvas.width,canvas.height);
 
 
@@ -305,7 +314,7 @@ var b=0;
 var count=0;
 
 var px_data= imgPixels.data;
-  for(var i = 0; i<px_data.length; i=i+4*10){  
+  for(var i = 0; i<px_data.length - 40; i=i+4*10){  
         
             count++;
            r=  r+px_data[i];
@@ -319,8 +328,30 @@ g=Math.floor(g/count);
 b=Math.floor(b/count);
 
 document.getElementById("header-wrap").style.backgroundColor = 
-document.body.style.borderColor =
 document.body.style.borderColor = 'rgb(' + r + ',' + g + ',' + b + ')';
-
 }
+}
+}
+
+
+function spinner(opt){
+
+	switch(opt) {
+
+		case 'show':
+        $(".spinner_container").fadeIn(50);
+
+        break;
+
+    	case 'hide':
+         $(".spinner_container").fadeOut(50);
+
+        break;
+
+
+    default:
+        $(".spinner_container").hide();
+
+	}
+
 }
