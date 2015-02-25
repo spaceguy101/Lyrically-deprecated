@@ -1,8 +1,8 @@
 
 {
-  "name": "lyrics",
+  "name": "Lyrical",
   "version": "1.0",
-  "description": ":P",
+  "description": "Automatically Retrieves Lyrics Of Song For Various Music Services",
   
   "background": {
       "scripts": [ "jquery-2.1.1.min.js", "mybackground.js" ]
@@ -46,10 +46,6 @@
    }, {
       "js": [ "content_scripts/mycontent.js","content_scripts/cs_spotify.js","jquery-2.1.1.min.js" ],
      "matches": [ "https://play.spotify.com/*" ],
-      "run_at": "document_end"
-   }, {
-      "js": [ "content_scripts/Gsearch.js","jquery-2.1.1.min.js" ],
-     "matches": [ "https://encrypted.google.com/*" ],
       "run_at": "document_end"
    }],
    "content_security_policy": "script-src 'self' https://apis.google.com https://ajax.googleapis.com; object-src 'self'",

@@ -17,5 +17,4 @@ function checkTrackChange() {
 function fetchTrackInfo(){
 Name=$('.watch-main-col meta[itemprop="name"]').attr('content');
 ImgSrc=$('.watch-main-col link[itemprop="thumbnailUrl"]').attr('href');
-ImgSrc=ImgSrc.replace('maxresdefault','default');
 }

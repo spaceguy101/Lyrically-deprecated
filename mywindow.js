@@ -290,10 +290,10 @@ if(srcImg)
 {
 	var img = new Image();
 
-img.src =srcImg;
 
 
 
+img.onload=function(){
 
 var canvas=document.createElement("canvas");
 
@@ -331,6 +331,12 @@ document.getElementById("header-wrap").style.backgroundColor =
 document.body.style.borderColor = 'rgb(' + r + ',' + g + ',' + b + ')';
 }
 }
+
+img.src =srcImg;
+
+
+}
+
 }
 
 
@@ -339,12 +345,12 @@ function spinner(opt){
 	switch(opt) {
 
 		case 'show':
-        $(".spinner_container").fadeIn(50);
+        $(".spinner_container").fadeIn(250);
 
         break;
 
     	case 'hide':
-         $(".spinner_container").fadeOut(50);
+         $(".spinner_container").fadeOut(250);
 
         break;
 

@@ -7,7 +7,11 @@ $.ajax({
 			data: {v:'1.0',q: 'site:www.lyricsmasti.com -"Page Ranking Information"' + title },
 			dataType: 'jsonp',
 			type: 'GET',
-			error: function(){},
+			error: function(){
+				document.getElementById('main').innerHTML= 'Sorry.. :( </br> Error Occured';
+					spinner('hide');
+
+			},
 			success: function(googledata){
 					
 
@@ -47,6 +51,14 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 			.ajax({
 				url : songURL,
 				type : 'GET',
+
+				error: function(){
+					spinner('hide');
+				document.getElementById('main').innerHTML= 'Sorry.. :( </br> Error Occured';
+					
+
+			},
+
 				success : function(songData, songStatus) {
 					
 					lyrics = getLyricsFromRawHtml_masti(songData);
@@ -70,6 +82,9 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 								+ songURL + '" target="_blank">LyricMasti.com  </a>'
 								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';
 						$('.scrollbar').perfectScrollbar('update');
+
+
+						
 					}
 					
 					
@@ -81,11 +96,11 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 
 function getLyricsFromRawHtml_masti(data) 
 {
-	var filter = function() 
-	{return this.nodeType === Node.TEXT_NODE|| $(this).is(' br, i, b, strong, em');};
+	var filter = function() {
+		return this.nodeType === Node.TEXT_NODE|| $(this).is(' br, i, b, strong, em');
+	};
 	return $('<div>').append(
-			$(data).find('#lcontent1').contents().filter(filter)).remove()
-			.html();
+			$(data).find('#lcontent1').contents().filter(filter)).remove().html();
 }
 
 

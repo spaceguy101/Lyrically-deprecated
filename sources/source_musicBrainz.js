@@ -10,8 +10,9 @@ function getArtistFromMusicBrainz(title, album) {
 				},
 				type : "GET",
 				error : function(jqXHR, textStatus, errorThrown) {
-					console.log("Error calling MusicBrainz api!");
-					mainView.innerHTML = 'Error occurred on MusicBrainz ';
+					
+					spinner('hide');
+					mainView.innerHTML = 'Error occurred.... ';
 							
 				},
 				success : function(data, status) {

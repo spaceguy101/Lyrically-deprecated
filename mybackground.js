@@ -27,7 +27,7 @@ function iconClicked ()
 
 
 		chrome.windows.create({'url': 'mywindow.html', 'type': 'panel','width': 350,
-'height': 460});
+'height': 495});
 
 }
 
