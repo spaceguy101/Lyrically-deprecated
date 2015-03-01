@@ -1,26 +1,27 @@
 
 {
-  "name": "Lyrical",
+  "name": "Lyrical - Lyrics Extension ",
+  "short_name": "Lyrical",
   "version": "1.0",
-  "description": "Automatically Retrieves Lyrics Of The Song Playing ... For Various Music Services",
+  "description": "Automatically Retrieves Lyrics Of The Song Playing On Youtube,Gaana,Saavn,Bopfm,GrooveShark,Guvera & Other Music Services",
   
   "background": {
       "scripts": [ "jquery-2.1.1.min.js", "mybackground.js" ]
    },
    "content_scripts": [ {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_gaana.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_gaana.js","jquery-2.1.1.min.js" ],
       "matches": [ "http://gaana.com/*","http://beta.gaana.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_saavn.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_saavn.js","jquery-2.1.1.min.js" ],
      "matches": [ "http://www.saavn.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_rdio.js","jquery-2.1.1.min.js" ],
+      "js": ["content_scripts/cs_rdio.js","jquery-2.1.1.min.js" ],
      "matches": [ "http://www.rdio.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_hungama.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_hungama.js","jquery-2.1.1.min.js" ],
      "matches": [ "http://www.hungama.com/*" ],
       "run_at": "document_end"
    }, {
@@ -28,23 +29,23 @@
      "matches": [ "https://www.youtube.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": ["content_scripts/mycontent.js","content_scripts/cs_bopfm.js","jquery-2.1.1.min.js" ],
+      "js": ["content_scripts/cs_bopfm.js","jquery-2.1.1.min.js" ],
      "matches": [ "https://bop.fm/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_guvera.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_guvera.js","jquery-2.1.1.min.js" ],
      "matches": [ "https://www.guvera.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_raaga.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_raaga.js","jquery-2.1.1.min.js" ],
      "matches": [ "http://play.raaga.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_grooveshark.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_grooveshark.js","jquery-2.1.1.min.js" ],
      "matches": [ "http://grooveshark.com/*" ],
       "run_at": "document_end"
    }, {
-      "js": [ "content_scripts/mycontent.js","content_scripts/cs_spotify.js","jquery-2.1.1.min.js" ],
+      "js": [ "content_scripts/cs_spotify.js","jquery-2.1.1.min.js" ],
      "matches": [ "https://play.spotify.com/*" ],
       "run_at": "document_end"
    }],

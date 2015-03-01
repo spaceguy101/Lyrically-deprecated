@@ -39,7 +39,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
     artist = message.artist;
 	title = message.title.replace(/\s*\(.*?\)\s*/g, '').replace(/remix/i,'').replace(/ -.*/, '');
 	album=message.album;
-	imgsrc=message.imgsrc.replace('maxresdefault','default');
+	imgsrc=message.imgsrc;
 	site='others';
 	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
@@ -48,7 +48,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	else if(message.msg == 'youtube_data'){
 	 
 			
-			imgsrc=message.imgsrc;
+			imgsrc=message.imgsrc.replace(/maxresdefault/g,'default');
         	title=message.title;
 		    site='youtube';
 			chrome.runtime.sendMessage({'msg':'change','title':title,'site':site,'imgsrc':imgsrc});

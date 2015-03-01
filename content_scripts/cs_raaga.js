@@ -1,3 +1,16 @@
+Name = album = Artist1 = ImgSrc = '';
+
+
+var trackChangeInterval = setInterval(function() {
+	var prevName = Name;
+	fetchTrackInfo();
+	if (Name !== prevName && Name) {
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
+	}
+}, 3000);
+
+
+
 function fetchTrackInfo(){
 	
   Name = '';

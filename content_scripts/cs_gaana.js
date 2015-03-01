@@ -1,11 +1,23 @@
 //gaana.com
+
+Name = album = Artist1 = ImgSrc = '';
+
+
+var trackChangeInterval = setInterval(function() {
+	var prevName = Name;
+	fetchTrackInfo();
+	if (Name !== prevName && Name) {
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
+	}
+}, 3000);
+
+
+
+
 function fetchTrackInfo(){
   var prevName=Name;
-  Name = '';
-  album = '';
-  Artist1 = '';
-  artists = '';
-  ImgSrc ='';
+  Name = album = Artist1 = artists = ImgSrc ='';
+  
   div_trackInfo = document.getElementById('trackInfo');
   
   if (!div_trackInfo || div_trackInfo.children.length === 0){
