@@ -2,7 +2,7 @@
 {
   "name": "Lyrical",
   "version": "1.0",
-  "description": "Automatically Retrieves Lyrics Of Song For Various Music Services",
+  "description": "Automatically Retrieves Lyrics Of The Song Playing ... For Various Music Services",
   
   "background": {
       "scripts": [ "jquery-2.1.1.min.js", "mybackground.js" ]
@@ -52,7 +52,7 @@
   "page_action" :
   {
     "default_icon" : "images/icon64.png",
-    "default_title" : "lyrics"
+    "default_title" : "Lyrical"
   },
   "icons": {
       "128": "images/icon-128x128.png",

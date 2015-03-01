@@ -39,6 +39,7 @@ $.ajax({
 										}
 				}catch(err){
 					spinner('hide');
+					document.getElementById('main').innerHTML= 'Sorry.. :( </br>Some Error occured';
 				}
 							
 				
@@ -80,7 +81,7 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricMasti.com  </a>'
-								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';
+								+ '  <a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">    About Me :)</a>.';
 						$('.scrollbar').perfectScrollbar('update');
 
 

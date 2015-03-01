@@ -4,12 +4,10 @@ window.onload = function() {
 	header = document.getElementById("header");
 	artist_name=document.getElementById('artist_name');
      $('.scrollbar').perfectScrollbar();
-	 artist = '';
+	artist = '';
 	title = '' ;
 	album ='';
 	
-
-
 }
 
 
@@ -35,10 +33,7 @@ document.addEventListener('DOMContentLoaded', function () {
     document.getElementById('bttn').addEventListener('click', input);
 });
 
-function input()
-{
-
-	
+function input(){
 
 
 $("#imgart").attr("src", 'images/icon64.png');
@@ -48,6 +43,7 @@ document.body.style.borderColor ='#4285f4';
 
 artist = document.getElementById("artist").value;
 title = document.getElementById("title").value;
+spinner('show');
 getLyrics(artist, title);
 }
 	
@@ -56,6 +52,8 @@ getLyrics(artist, title);
 
 chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 
+
+	spinner('show');
 	
 	if (request.site == 'others'){
 	
@@ -82,13 +80,15 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 
 chrome.runtime.onMessage.addListener(function(request, sender,
 		sendResponse) {
+
+	spinner('show');
 	if (request.msg == "change") {
 	
 	if (request.site == 'others'){
 	
 	
 	//mainView.innerHTML = "Searching lyrics...";
-	spinner('show');
+	
 	getLyrics(request.artist, request.title, request.album);
 	
 	
@@ -98,7 +98,7 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	
 	//mainView.innerHTML = "Searching lyrics...";
-	spinner('show');
+	
 	processYoutubeData(request.title);
 	//searchLyricsWikia_google(request.title);
 	}
@@ -133,14 +133,14 @@ function getLyrics(artist, title, album)
 	}
 
 	if (!artist) {
-		mainView.innerHTML = 'Artist is missing! ';
+		mainView.innerHTML = 'Failed to Retrieve Artsist Name!';
 		getArtistFromMusicBrainz(title, album);
 		
 		return;
 	}
 	
 	setHeader(artist, title);
-	//mainView.innerHTML = "Searching....  ";
+	
 	getURLFromLyricWiki(artist, title);
 	
 
@@ -154,6 +154,8 @@ function processYoutubeData(str){
 	closePopup();
 	
 	str = (str).replace(/ (Feat|ft|feat|Ft).*?\-/i, '');
+
+	//CLEANING title...
 			if(/(ft|feat|Feat|Ft)/gi.test(str))
 			{
 			str = (str).replace(/ (ft|feat|Feat|Ft).*/i, '');
@@ -165,7 +167,7 @@ function processYoutubeData(str){
 			str = (str).replace(str_arr[i], '');
 			}
 			
-			// Put If else condition whether to Get Lyrics by Youtube method or Other method....
+			// condition whether to Get Lyrics by Youtube method or Other method....
 			var patt_title3 = new RegExp(/ \s*\|.*/g);
 			var patt_title1 = new RegExp(/\s*\'.*?\'\s*/g);
 			var patt_title2 = new RegExp(/\s*\".*?\"\s*/g);
@@ -173,7 +175,7 @@ function processYoutubeData(str){
 			if(patt_title1.test(str)||patt_title2.test(str)||patt_title3.test(str))
 			{
 			
-			//clean title for indian songs
+			
 			str = (str).replace(/ \s*\|.*/g, '');
 			str = (str).replace(/\s*\|.*?\|\s*/g, ''); // Remove |.*|
 			str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // capture 'Track title'
@@ -227,60 +229,13 @@ function searchGoogle(title)
 				$("#artist_name").css("display", "none");
 				title=title.replace(/[:;~*]/g,'');
 				header.innerHTML = title ;
-				//chrome.runtime.sendMessage({'msg':'change','title':title,'site':'youtube','imgsrc':imgsrc});
 				searchLyricsWikia_google(title);
 				
 			
 }
 
 
-function getDataFromMusicBrainz_forYoutube(title2,album2) {
-	title2=title2.trim();
-	album2=album2.trim();
-	
-	if(album2)
-	query = 'recording:' + title2 + ' AND release:'+ album2 ;
-	else query = 'recording:' + title2 + ' AND country:IN';
-	$
-			.ajax({
-				url : "http://musicbrainz.org/ws/2/recording",
-				data : {
-					query : query
-				},
-				type : "GET",
-				error : function(jqXHR, textStatus, errorThrown) {
-					console.log("Error calling MusicBrainz api!");
-					searchGoogle(title2);
-				},
-				success : function(data, status) {
-				
-					
-					title_arr=$(data).find("title");
-						
-					artistCredit = $(data).find("artist-credit");
-					if (artistCredit.length > 0 && title_arr.length >0) {
-						artist= artistCredit[0].getElementsByTagName("artist")[0]
-								.getElementsByTagName("name")[0].textContent;
-						
-						title=title_arr[0].textContent;
-						
-						console.log("Artist name retrieved from MusicBrainz: "
-								+ artist+'title  '+title);
-								
-					title = (title).replace(/\s*\(.*?\)\s*/g, '');
-					//chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':'others','imgsrc':imgsrc});		
-								
-					getLyrics(artist, title, album);
-						
-					} else {
-						console.log("MusicBrainz returned 0 results");
-						searchGoogle(title2);
-						
-					}
-				}
 
-			});
-}
 
 
 function changeToDominantColor(srcImg){
@@ -288,15 +243,12 @@ function changeToDominantColor(srcImg){
 
 if(srcImg)
 {
-	var img = new Image();
-
-
-
+	
+var img = new Image();
 
 img.onload=function(){
 
 var canvas=document.createElement("canvas");
-
 canvas.height=img.height;
 canvas.width=img.width;
 
@@ -304,6 +256,7 @@ canvas.width=img.width;
 var ctx=canvas.getContext("2d");
 
 ctx.drawImage(img,0,0);
+
 if(canvas.height && canvas.width){
 var imgPixels = ctx.getImageData(0,0,canvas.width,canvas.height);
 

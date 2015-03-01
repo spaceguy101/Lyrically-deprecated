@@ -15,8 +15,8 @@ function getURLFromLyricWiki(artist, title)
 				cache : false,
 				error : function(jqXHR, textStatus, errorThrown) {
 
-					mainView.innerHTML = 'Sorry :( ....An error occurred while retrieving lyrics for "'
-							+ title + '" by "' + artist + '" Please retry.';
+					spinner('hide');
+					mainView.innerHTML = 'Sorry :( ....An error occurred while retrieving lyrics. ';
 							
 				},
 				success : function(lyricsData, status) {
@@ -28,11 +28,12 @@ function getURLFromLyricWiki(artist, title)
 
 						if (lyrics === 'Not found') {
 							
-							
+							document.getElementById('main').innerHTML = 'Trying To Get Lyrics from LyricsMasti.com';
 							getLyricsFromLyricsMasti(title,artist);
 							
 						}
-						getLyricsFromLyricWikiURL(songURL,title,artist);
+						else
+							getLyricsFromLyricWikiURL(songURL,title,artist);
 					
 
 				}
@@ -50,6 +51,7 @@ function getLyricsFromLyricWikiURL(songURL,title,artist) {
 					lyrics = getLyricsFromRawHtml_wikia(songData);
 					
 					if (lyrics.length === 0) {
+						document.getElementById('main').innerHTML = 'Trying To Get Lyrics from LyricsMasti.com';
 						getLyricsFromLyricsMasti(title,artist);
 					} else {
 
@@ -57,7 +59,7 @@ function getLyricsFromLyricWikiURL(songURL,title,artist) {
 
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
 								+ songURL + '" target="_blank">LyricWiki.  </a>'
-								+ 'by-<a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">Shreyas Ponkshe :)</a>.';
+								+ '   <a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">    About Me :)</a>.';
 			
 						$('.scrollbar').perfectScrollbar('update');
 					}
@@ -72,8 +74,9 @@ function getLyricsFromRawHtml_wikia(data)
 	
 	
 	var filter = function() 
-	{return this.nodeType === Node.TEXT_NODE|| $(this).is('p, br, i, b, strong, em');};
+	{
+		return this.nodeType === Node.TEXT_NODE|| $(this).is('p, br, i, b, strong, em');
+	};
 	return $('<div>').append(
-			$(data).find('.lyricbox').contents().filter(filter)).remove()
-			.html();
+			$(data).find('.lyricbox').contents().filter(filter)).remove().html();
 }

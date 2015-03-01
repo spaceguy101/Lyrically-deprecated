@@ -14,7 +14,8 @@ chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
 	||(tab.url.indexOf('guvera') > -1) && (Info.status == "complete")
 	||(tab.url.indexOf('raaga') > -1) && (Info.status == "complete")
 	||(tab.url.indexOf('grooveshark') > -1) && (Info.status == "complete")
-	||(tab.url.indexOf('spotify') > -1) && (Info.status == "complete"))
+	||(tab.url.indexOf('spotify') > -1) && (Info.status == "complete")
+	||(tab.url.indexOf('bop') > -1) && (Info.status == "complete"))
     chrome.pageAction.show(tabId);
 });
 
@@ -36,7 +37,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
   // When we get a message from the content script
   if(message.msg == 'trackInfo'){
     artist = message.artist;
-	title = message.title.replace(/\s*\(.*?\)\s*/g, '').replace(/remix/i,'').replace(/ -/,'');
+	title = message.title.replace(/\s*\(.*?\)\s*/g, '').replace(/remix/i,'').replace(/ -.*/, '');
 	album=message.album;
 	imgsrc=message.imgsrc.replace('maxresdefault','default');
 	site='others';
@@ -87,7 +88,7 @@ function getPanelFlagState(callback) {
         _isPanelEnabled = windowInfo.alwaysOnTop;
         chrome.windows.remove(windowInfo.id);
 
-        // Handle all queued callbacks
+
         while (callback = _isPanelEnabledQueue.shift()) {
             callback(windowInfo.alwaysOnTop);
         }
@@ -103,6 +104,9 @@ if(!isEnabled){
 });
 }
 
+
+/*
 function search(){
 	window.open("https://encrypted.google.com/#q=site:lyricsmasti.com+Lonely", '_blank', 'toolbar=no,status=no,menubar=no,scrollbars=no,resizable=no,left=10000, top=10000, width=10, height=10, visible=none', '')
 }
+*/

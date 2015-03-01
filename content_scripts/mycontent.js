@@ -12,9 +12,9 @@ var trackChangeInterval = setInterval(function() {
 function checkTrackChange() {
 	var prevName = Name;
 	fetchTrackInfo();
-	if (Name !== prevName) {
+	console.log(Name);
+	if (Name !== prevName && Name) {
 		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
-		
 	}
 }
 
