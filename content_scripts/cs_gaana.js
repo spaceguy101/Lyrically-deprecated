@@ -39,7 +39,10 @@ function fetchTrackInfo(){
 
   if (Name === "Gaana Promotional"){Name = prevName;}
   
-  
+  if (Name === "Radio Mirchi Started..."){
+  	Name = prevName;
+  }
+
   ImgSrc =document.getElementsByClassName('playersongimg')[0].getElementsByTagName('img')[0].getAttribute('src');
   
 }

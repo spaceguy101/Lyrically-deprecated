@@ -7,6 +7,12 @@ window.onload = function() {
 	artist = '';
 	title = '' ;
 	album ='';
+
+	var background = chrome.extension.getBackgroundPage();
+
+addEventListener("unload", function (event) {
+    background.popupActive=false;
+}, true);
 	
 }
 
@@ -314,3 +320,5 @@ function spinner(opt){
 	}
 
 }
+
+

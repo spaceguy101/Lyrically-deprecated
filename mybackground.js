@@ -3,6 +3,7 @@ title = '' ;
 album ='';
 site='';
 imgsrc='';
+popupActive= false;
 chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
  
  if (Info.status == "loading") return;
@@ -26,9 +27,13 @@ chrome.pageAction.onClicked.addListener(iconClicked);
 function iconClicked ()
 {
 
-
+if(popupActive == false)
+{
 		chrome.windows.create({'url': 'mywindow.html', 'type': 'panel','width': 350,
 'height': 495});
+
+popupActive= true;
+	}
 
 }
 
