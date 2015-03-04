@@ -167,7 +167,7 @@ function processYoutubeData(str){
 			str = (str).replace(/ (ft|feat|Feat|Ft).*/i, '');
 			}
 			
-			var str_arr=[/official/i,/video/i,/full/i,/song/i,/exclusive/i,/title/i,/audio/i,/latest/i,/unplugged/i,/bollywood/i,/sing/i,/along/i,/\s+(HD|HQ)\s*$/i,/\s*\(\s*[0-9]{4}\s*\)/i,/remix/i];
+			var str_arr=[/official/gi,/video/gi,/full/gi,/song/gi,/exclusive/gi,/title/gi,/audio/gi,/latest/gi,/unplugged/gi,/bollywood/gi,/sing/gi,/along/gi,/(HD|HQ)/,/remix/gi,/Original/gi,/lyrical/gi,/Lyrics/gi];
 			for(i=0;i<str_arr.length;i++)
 			{
 			str = (str).replace(str_arr[i], '');
@@ -193,7 +193,7 @@ function processYoutubeData(str){
 			patt_str=new RegExp('-');
 			if(patt_str.test(str)){
 			
-			commaIndex = str.indexOf("-");
+			var commaIndex = str.indexOf("-");
 			 var title_sony = str.substring(0, commaIndex);
 			 var album_sony = str.substring(commaIndex+1, str.length);
 

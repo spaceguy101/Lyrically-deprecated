@@ -4,6 +4,7 @@ album ='';
 site='';
 imgsrc='';
 popupActive= false;
+popupId='';
 chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
  
  if (Info.status == "loading") return;
@@ -27,13 +28,20 @@ chrome.pageAction.onClicked.addListener(iconClicked);
 function iconClicked ()
 {
 
-if(popupActive == false)
+if(popupActive === false)
 {
 		chrome.windows.create({'url': 'mywindow.html', 'type': 'panel','width': 350,
-'height': 495});
+'height': 495},function (popup) {
+      popupId = popup.id;
+    });
 
 popupActive= true;
 	}
+
+else{
+
+ chrome.windows.update(popupId, { "focused": true });
+}
 
 }
 
