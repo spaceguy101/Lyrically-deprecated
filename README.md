@@ -16,4 +16,8 @@ Chrome Extension For Lyrics
  
  #####Current Lyrics Sources : 
  * http://lyrics.wikia.com
- * www.lyricsmasti.com
+  * www.lyricsmasti.com
+
+ ### Screenies:
+ ![ScreenShot](https://github.com/singham007/Lyrical/Screenshots/Capture.PNG)
+  ![Enter Manually](https://github.com/singham007/Lyrical/Screenshots/Capture.PNG)
