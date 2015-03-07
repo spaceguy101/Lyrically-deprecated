@@ -1,5 +1,5 @@
 function getArtistFromMusicBrainz(title, album) {
-	var artist = 'Not Found';
+	var artist = '';
 	query = 'recording:"' + title + '" AND release:"' + album + '"';
 
 	$
@@ -61,8 +61,11 @@ function getDataFromMusicBrainz_forYoutube(title2,album2) {
 					title=title_arr[0].textContent;			
 					title = (title).replace(/\s*\(.*?\)\s*/g, '');
 							
-								
+					
+					if(title.length > title2.length - 2 && title.length < title2.length + 2)
 					getLyrics(artist, title, album);
+					else
+						searchGoogle(title2);
 						
 					} else {
 						

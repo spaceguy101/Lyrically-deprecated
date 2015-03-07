@@ -1,14 +1,18 @@
 # Lyrical
 Chrome Extension For Lyrics
 -----------
-###View lyrics in a panel window (Same as Hangouts Extension).
+###View lyrics in a panel type attachable window for Current playing song on music website.
 #####Supported music services websites:
  * *Gaana.com*
  * *Saavn.com*
  * *Hungama.com*
  * *Youtube.com(Beta)*
- * *rdio.com*(currently NA)
+ * *rdio.com*
  * *bop.fm*
+ * *Guvera*
+ * *Raaga*
+ * *Grooveshark*
+ * *Spotify*
  
  #####Current Lyrics Sources : 
  * http://lyrics.wikia.com

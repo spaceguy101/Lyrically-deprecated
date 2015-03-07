@@ -1,13 +1,14 @@
 
 //For Lyrics masti.com
 function getLyricsFromLyricsMasti(title,artist) {
-
+var title = title;
+var artist = artist;
 $.ajax({
 			url: 'https://ajax.googleapis.com/ajax/services/search/web',
 			data: {v:'1.0',q: 'site:www.lyricsmasti.com -"Page Ranking Information"' + title },
 			dataType: 'jsonp',
 			type: 'GET',
-			error: function(){
+			error: function(jqXHR, textStatus, errorThrown){
 				document.getElementById('main').innerHTML= 'Sorry.. :( </br> Error Occured';
 					spinner('hide');
 
@@ -24,7 +25,16 @@ $.ajax({
 								+ url_lyricsMasti + '" target="_blank">'
 									+ url_lyricsMasti +
 									' </a>';
-									
+
+									//console.log(url_lyricsMasti);
+
+					/*if( url_lyricsMasti === 'http://www.lyricsmasti.com/lyricsmasti.swf')	
+					{
+						searchGoogle(title + ' ' + artist);
+						return;
+					}*/
+
+
 				getLyricsFromLyricMastiURL(url_lyricsMasti,title,artist)	;	
 				}
 				else {
@@ -53,7 +63,7 @@ function getLyricsFromLyricMastiURL(songURL,title,artist) {
 				url : songURL,
 				type : 'GET',
 
-				error: function(){
+				error: function(jqXHR, textStatus, errorThrown){
 					spinner('hide');
 				document.getElementById('main').innerHTML= 'Sorry.. :( </br> Error Occured';
 					
