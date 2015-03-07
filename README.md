@@ -19,5 +19,5 @@ Chrome Extension For Lyrics
   * www.lyricsmasti.com
 
  ### Screenies:
- ![ScreenShot](https://github.com/singham007/Lyrical/Screenshots/Capture.PNG)
-  ![Enter Manually](https://github.com/singham007/Lyrical/Screenshots/Capture2.PNG)
+ ![ScreenShot](https://raw.githubusercontent.com/singham007/Lyrical/master/Screenshots/Capture.PNG)
+  ![Enter Manually](https://raw.githubusercontent.com/singham007/Lyrical/master/Screenshots/Capture2.PNG)
