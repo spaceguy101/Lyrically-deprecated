@@ -20,4 +20,4 @@ Chrome Extension For Lyrics
 
  ### Screenies:
  ![ScreenShot](https://github.com/singham007/Lyrical/Screenshots/Capture.PNG)
-  ![Enter Manually](https://github.com/singham007/Lyrical/Screenshots/Capture.PNG)
+  ![Enter Manually](https://github.com/singham007/Lyrical/Screenshots/Capture2.PNG)
