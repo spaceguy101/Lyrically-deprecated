@@ -11,7 +11,7 @@ window.onload = function() {
 	var background = chrome.extension.getBackgroundPage();
 
 addEventListener("unload", function (event) {
-    background.popupActive=false;
+    background.popupActive= false;
 }, true);
 	
 }
@@ -42,7 +42,8 @@ document.addEventListener('DOMContentLoaded', function () {
 function input(){
 
 
-$("#imgart").attr("src", 'images/icon64.png');
+$(".img-holder").hide();
+$("#imgart").hide();
 
 document.getElementById("header-wrap").style.backgroundColor =
 document.body.style.borderColor ='#4285f4';
@@ -58,8 +59,9 @@ getLyrics(artist, title);
 
 chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 
-
-	spinner('show');
+$(".img-holder").show();
+$("#imgart").show();
+spinner('show');
 	
 	if (request.site == 'others'){
 	
@@ -87,7 +89,10 @@ chrome.runtime.sendMessage({'msg':'getTrackInfo'},function(request){
 chrome.runtime.onMessage.addListener(function(request, sender,
 		sendResponse) {
 
+	$(".img-holder").show();
+	$("#imgart").show();
 	spinner('show');
+
 	if (request.msg == "change") {
 	
 	if (request.site == 'others'){
@@ -122,7 +127,7 @@ function setHeader(artist, title)
 	if (title){
 		header.innerHTML = title;
 		artist_name.innerHTML=artist;
-		$("#artist_name").show(400);
+		$("#artist_name").show(700);
 	}
 }
 
@@ -134,12 +139,14 @@ function getLyrics(artist, title, album)
  
 	if (!title) {
 		spinner('hide');
-		mainView.innerHTML = 'No Song title. Cannot search for lyrics :-(';
-		return;
+		mainView.innerHTML = 'Cannot Get Song title... :-( </br> You May Try Searching Manually';
+			setHeader('---','---');
+			setTimeout(openPopup, 3500);
+		return; 
 	}
 
 	if (!artist) {
-		mainView.innerHTML = 'Failed to Retrieve Artsist Name!';
+		mainView.innerHTML = 'Searching Artsist Name...';
 		getArtistFromMusicBrainz(title, album);
 		
 		return;

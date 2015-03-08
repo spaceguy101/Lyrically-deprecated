@@ -58,8 +58,7 @@ function getLyricsFromLyricWikiURL(songURL,title,artist) {
 						spinner('hide');
 
 						document.getElementById('main').innerHTML = lyrics + '</p> Source <a href="'
-								+ songURL + '" target="_blank">LyricWiki.  </a>'
-								+ '   <a href="https://plus.google.com/+ShreyasPonkshe1/" target="_blank">    About Me :)</a>.';
+								+ songURL + '" target="_blank">LyricWiki.  </a>';
 			
 						$('.scrollbar').perfectScrollbar('update');
 					}

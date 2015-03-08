@@ -5,6 +5,8 @@ site='';
 imgsrc='';
 popupActive= false;
 popupId='';
+
+
 chrome.tabs.onUpdated.addListener(function (tabId,Info, tab) {
  
  if (Info.status == "loading") return;
