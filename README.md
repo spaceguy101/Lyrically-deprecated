@@ -20,8 +20,8 @@ Chrome Extension For Lyrics
 
  ### Screenies:
  ![ScreenShot](https://raw.githubusercontent.com/singham007/Lyrical/master/Screenshots/Capture.PNG)
-> ** ScreenShot 1 **
+ #####ScreenShot
  ![Enter Manually](https://raw.githubusercontent.com/singham007/Lyrical/master/Screenshots/Capture2.PNG)
-> ** Enter Manually **
+ #####Enter Manually
  ![Search Youtube](https://raw.githubusercontent.com/singham007/Lyrical/master/Screenshots/Capture3.PNG)
-> ** Search Lyrics On Youtube **
+ #####Search Lyrics On Youtube
