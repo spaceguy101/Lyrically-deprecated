@@ -65,11 +65,11 @@ function getDataFromMusicBrainz_forYoutube(title2,album2) {
 					if(title.length > title2.length - 2 && title.length < title2.length + 2)
 					getLyrics(artist, title, album);
 					else
-						searchGoogle(title2);
+						searchGoogle(title2 +' '+album2);
 						
 					} else {
 						
-						searchGoogle(title2);
+						searchGoogle(title2 +' '+album2);
 						
 					}
 				}

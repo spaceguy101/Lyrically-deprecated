@@ -5,7 +5,6 @@ ImgSrc = '';
 
 
 
-
 setInterval(function() {	
 
 
@@ -37,8 +36,6 @@ window.ImgSrc = '';
 		} 
 		
 	}, 1500);
-
-
 
 
 // Use thsi to skip on ads /  $('.App_PlayerFooter_Ad').children().length > 0
