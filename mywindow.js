@@ -293,6 +293,7 @@ r=Math.floor(r/count);
 g=Math.floor(g/count);
 b=Math.floor(b/count);
 
+document.getElementById("player").style.backgroundColor =
 document.getElementById("header-wrap").style.backgroundColor = 
 document.body.style.borderColor = 'rgb(' + r + ',' + g + ',' + b + ')';
 }
@@ -329,3 +330,68 @@ function spinner(opt){
 }
 
 
+
+// For PLayer///////////////////////////////////////////////////
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+
+
+  document.getElementById('play').addEventListener('click', function(){
+
+chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
+ console.log(tabs);
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "play"}, function(response) {
+   
+      });
+ });
+  });
+
+
+document.getElementById('next').addEventListener('click', function(){
+
+chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
+ console.log(tabs);
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "next"}, function(response) {
+   
+      });
+  });
+  });
+
+document.getElementById('prev').addEventListener('click', function(){
+
+chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
+ console.log(tabs);
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "prev"}, function(response) {
+   
+      });
+  });
+  });
+
+
+
+document.getElementById('shuffle').addEventListener('click', function(){
+
+chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
+ console.log(tabs);
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "shuffle"}, function(response) {
+   
+      });
+  });
+  });
+
+
+document.getElementById('repeat').addEventListener('click', function(){
+
+chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
+ console.log(tabs);
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "repeat"}, function(response) {
+   
+      });
+    });
+  });
+
+
+
+});

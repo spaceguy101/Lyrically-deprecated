@@ -8,7 +8,7 @@ $.ajax({
 			success: function(googledata){
 				if(typeof googledata.responseData.results[0] !== 'undefined' && googledata.responseData.results[0] !== null ){
 				url_lyricsWikia = googledata.responseData.results[0].unescapedUrl ;
-				getLyricsFromLyricWikiURL(url_lyricsWikia,title,'');
+				getLyricsFromLyricWikiURL(url_lyricsWikia);
 				}
 				else {
 					var artist='';
