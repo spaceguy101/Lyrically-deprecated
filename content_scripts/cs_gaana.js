@@ -7,7 +7,7 @@ var trackChangeInterval = setInterval(function() {
 	var prevName = Name;
 	fetchTrackInfo();
 	if (Name !== prevName && Name) {
-		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc , 'site': 'http://gaana.com/*'});
 	}
 }, 3000);
 
@@ -64,7 +64,7 @@ chrome.runtime.onMessage.addListener(
       $('a.shuffle')[0].click();
 
            if (request.msg == "repeat")
-      $('a.shuffle')[0].click();
+     $('#repeat .repeat1')[0].click();
 
 
 

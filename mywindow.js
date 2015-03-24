@@ -7,7 +7,7 @@ window.onload = function() {
 	artist = '';
 	title = '' ;
 	album ='';
-
+	site_name ='';
 	var background = chrome.extension.getBackgroundPage();
 
 addEventListener("unload", function (event) {
@@ -63,15 +63,10 @@ $(".img-holder").show();
 $("#imgart").show();
 spinner('show');
 	
-	if (request.site == 'others'){
 	
-	
-	   getLyrics(request.artist, request.title, request.album);
-	 
-	  }
 	  
 	  
-    else if(request.site == 'youtube'){
+    if(request.site == 'youtube'){
 	
 	
 	header.innerHTML = '' ;
@@ -80,6 +75,13 @@ spinner('show');
 
 	}
 
+	else {
+	
+	   getLyrics(request.artist, request.title, request.album);
+	 
+	  }
+
+	  site_name=request.site;
 	  $("#imgart").attr("src", request.imgsrc);
 	  changeToDominantColor(request.imgsrc);
 
@@ -95,7 +97,18 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 
 	if (request.msg == "change") {
 	
-	if (request.site == 'others'){
+
+
+	if(request.site == 'youtube'){
+	
+	
+	//mainView.innerHTML = "Searching lyrics...";
+	
+	processYoutubeData(request.title);
+	//searchLyricsWikia_google(request.title);
+	}
+
+	else {
 	
 	
 	//mainView.innerHTML = "Searching lyrics...";
@@ -105,15 +118,8 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	}
 	
-	 else if(request.site == 'youtube'){
-	
-	
-	//mainView.innerHTML = "Searching lyrics...";
-	
-	processYoutubeData(request.title);
-	//searchLyricsWikia_google(request.title);
-	}
-	
+	 
+	site_name=request.site;
 	$("#imgart").attr("src", request.imgsrc);
 	changeToDominantColor(request.imgsrc);
 
@@ -340,8 +346,8 @@ document.addEventListener('DOMContentLoaded', function () {
 
   document.getElementById('play').addEventListener('click', function(){
 
-chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
- console.log(tabs);
+chrome.tabs.query({'url': site_name },function(tabs){
+
  chrome.tabs.sendMessage(tabs[0].id, {msg: "play"}, function(response) {
    
       });
@@ -351,8 +357,8 @@ chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
 
 document.getElementById('next').addEventListener('click', function(){
 
-chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
- console.log(tabs);
+chrome.tabs.query({'url': site_name},function(tabs){
+
  chrome.tabs.sendMessage(tabs[0].id, {msg: "next"}, function(response) {
    
       });
@@ -361,8 +367,8 @@ chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
 
 document.getElementById('prev').addEventListener('click', function(){
 
-chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
- console.log(tabs);
+chrome.tabs.query({'url': site_name },function(tabs){
+
  chrome.tabs.sendMessage(tabs[0].id, {msg: "prev"}, function(response) {
    
       });
@@ -373,8 +379,8 @@ chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
 
 document.getElementById('shuffle').addEventListener('click', function(){
 
-chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
- console.log(tabs);
+chrome.tabs.query({'url': site_name},function(tabs){
+
  chrome.tabs.sendMessage(tabs[0].id, {msg: "shuffle"}, function(response) {
    
       });
@@ -384,8 +390,8 @@ chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
 
 document.getElementById('repeat').addEventListener('click', function(){
 
-chrome.tabs.query({'url': 'http://gaana.com/*'},function(tabs){
- console.log(tabs);
+chrome.tabs.query({'url': site_name },function(tabs){
+
  chrome.tabs.sendMessage(tabs[0].id, {msg: "repeat"}, function(response) {
    
       });
