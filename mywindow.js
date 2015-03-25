@@ -82,6 +82,7 @@ spinner('show');
 	  }
 
 	  site_name=request.site;
+	  handlePlayer(request.site);
 	  $("#imgart").attr("src", request.imgsrc);
 	  changeToDominantColor(request.imgsrc);
 
@@ -120,6 +121,7 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	 
 	site_name=request.site;
+	handlePlayer(request.site);
 	$("#imgart").attr("src", request.imgsrc);
 	changeToDominantColor(request.imgsrc);
 
@@ -190,11 +192,14 @@ function processYoutubeData(str){
 			var patt_title3 = new RegExp(/ \s*\|.*/g);
 			var patt_title1 = new RegExp(/\s*\'.*?\'\s*/g);
 			var patt_title2 = new RegExp(/\s*\".*?\"\s*/g);
+
+
+			var patt_title4 = new RegExp(/ \s*\I .*/g);
 			
-			if(patt_title1.test(str)||patt_title2.test(str)||patt_title3.test(str))
+			if(patt_title1.test(str)||patt_title2.test(str)||patt_title3.test(str)||patt_title4.test(str))
 			{
 			
-			
+			(str).replace(/ \s*\I .*/g, '');
 			str = (str).replace(/ \s*\|.*/g, '');
 			str = (str).replace(/\s*\|.*?\|\s*/g, ''); // Remove |.*|
 			str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // capture 'Track title'
@@ -216,7 +221,6 @@ function processYoutubeData(str){
 				
 
 			}
-			
 			
 			
 			//For Non-Indian
@@ -336,8 +340,42 @@ function spinner(opt){
 }
 
 
-
 // For PLayer///////////////////////////////////////////////////
+
+
+function handlePlayer(site){
+
+if(site == 'http://gaana.com/*' || site == 'http://www.saavn.com/*' ){
+
+$('.scrollbar').animate({height:'360px'}, 500);
+$('#player').show(500);
+$('#player').removeAttr('display');
+$("#player").css("display", "flex");
+}
+
+else{
+
+$('.scrollbar').animate({height:'410px'}, 500);
+$('#player').hide(500);
+}
+
+
+
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+///// Event listeners 
 
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -401,3 +439,4 @@ chrome.tabs.query({'url': site_name },function(tabs){
 
 
 });
+
