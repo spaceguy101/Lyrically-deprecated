@@ -1,5 +1,7 @@
-# Lyrical
+# Lyrically
 Chrome Extension For Lyrics
+-----------
+Chrome Web Store - [Lyrically.](https://chrome.google.com/webstore/detail/lyrically/ojakdafcdblnebecmoelanfkfmdackgf)
 -----------
 ###View lyrics in a panel type attachable window for Current playing song on music website.
 #####Supported music services websites:
