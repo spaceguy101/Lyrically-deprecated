@@ -37,5 +37,10 @@ window.ImgSrc = '';
 		
 	}, 1500);
 
+setTimeout(function(){
+$(".song_title").bind("DOMSubtreeModified", function() {
+    console.log($(".song_title").text());
+});
+},2000);
 
 // Use thsi to skip on ads /  $('.App_PlayerFooter_Ad').children().length > 0

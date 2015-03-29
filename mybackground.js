@@ -55,7 +55,7 @@ chrome.runtime.onMessage.addListener(function(message,sender,sendResponse){
 	title = message.title.replace(/\s*\(.*?\)\s*/g, '').replace(/remix/i,'').replace(/ -.*/, '');
 	album=message.album;
 	imgsrc=message.imgsrc;
-	site='others';
+	site = message.site;
 	chrome.runtime.sendMessage({'msg':'change','artist':artist ,'title':title,'album':album,'site':site,'imgsrc':imgsrc});
 	}
 	

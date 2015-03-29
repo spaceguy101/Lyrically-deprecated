@@ -7,7 +7,7 @@ var trackChangeInterval = setInterval(function() {
 	var prevName = Name;
 	fetchTrackInfo();
 	if (Name !== prevName && Name) {
-		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc , 'site': 'http://gaana.com/*'});
 	}
 }, 3000);
 
@@ -46,3 +46,32 @@ function fetchTrackInfo(){
   ImgSrc =document.getElementsByClassName('playersongimg')[0].getElementsByTagName('img')[0].getAttribute('src');
   
 }
+
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+
+    if (request.msg == "play")
+      $('a.playPause')[0].click();
+
+       if (request.msg == "next")
+      $('a.next')[0].click();
+
+       if (request.msg == "prev")
+      $('a.prev')[0].click();
+
+       if (request.msg == "shuffle")
+      $('a.shuffle')[0].click();
+
+           if (request.msg == "repeat")
+     $('#repeat .repeat1')[0].click();
+
+
+
+  });
+/*
+('a.playPause')[0].click();
+       ('a.next')[0].click();
+        ('a.prev')[0].click();
+        ('a.shuffle')[0].click();
+        */

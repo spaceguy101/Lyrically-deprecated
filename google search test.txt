@@ -1,0 +1,40 @@
+v.google={},
+v.google.r_url=/^https:\/\/encrypted\.google\.com\//,
+v.google.get_url=function(e){
+	var t="https://encrypted.google.com/search?q=",
+	r=e.query;return e.site&&(r="site:"+e.site+" "+r),
+	t+=encodeURIComponent(r)
+},
+v.google.getResultsFromResponse=function(e,t){
+n(t.url,e,c);
+for(var r,o=/<h3 class="r"><a href="(https?:\/\/[^"]+)"/g,i=[];null!==(r=o.exec(e));)
+i.push(a(r[1]));return i
+}
+
+
+
+
+
+
+
+
+function(t,n){
+function o(t){
+function n(){
+u.postMessage({
+type:"request",requestObject:{method:t.method,url:t.url,headers:t.headers,payload:t.payload}})
+}
+if(!r())return i(t),
+void 0;
+var c,
+a=t.url,
+l=!1,
+u=chrome.runtime.connect({name:"processRequest"});
+u.onDisconnect.addListener(function(){u=null,c&&c.cancel()});
+var d=function(){
+l=!0,u&&u.disconnect&&u.disconnect(),c&&c.cancel()};
+u.onMessage.addListener(function(i){
+if(!l&&i)switch(i.type){
+case"afterSend":t.afterSend({url:a,abort:d});break;
+case"fail":case"found":t[i.type](i.data);break;
+default:"requestPermission"===i.type&&t.afterSend({url:a,abort:d,_chrome_only_render_permission_request:function(d,p){function h(e){e?(s(d).update({".L759-b-yes":{textContent:"Permission granted!",disabled:!0},".L759-b-no":{disabled:!0}}),l||!u?o(t):n()):s(d).update({".L759-permission-description":{textContent:"Permission not granted. Do you want to try again?"}})}d.innerHTML='<div class="L759-permission-description">Cannot read from <span class="L759-chrome-permission-identifier"></span>.<br>Do you want to see lyrics from this source?</div><button class="L759-b-yes">Yes, add permission</button><button class="L759-b-always" title="Allow the extension to read lyrics from every known site.">Yes, always</button><button class="L759-b-no" title="Skip source">No</button><button class="L759-b-never" title="Skip source and never ask again for this site">Never</button>',s(d).update({".L759-chrome-permission-identifier":{textContent:i.sourceIdentifier},".L759-b-yes":{title:"Allows Lyrics Here to read lyrics from "+i.sourceIdentifier,onclick:function(){c&&c.cancel(),c=e(i.sourceIdentifier,i.chromePermissions,h)}},".L759-b-always":{title:"Allows Lyrics Here to read lyrics from all known lyrics and music sites",onclick:function(){return c&&c.cancel(),r()?(chrome.runtime.sendMessage("getAllLyricsPermissions",function(t){c&&c.cancel(),c=e("all-lyrics",t,h)}),void 0):(console.warn("Extension runtime unavailable, cannot request any permissions. Reload the page and try again."),void 0)}},".L759-b-no":{onclick:function(){c&&c.cancel(),t.fail({url:a})}},".L759-b-never":{_post:function(e){(i.sourceIdentifier!==p||i.cannotBeDisabled)&&(e.style.display="none")},onclick:function(){c&&c.cancel(),t.fail({_chrome_only_blocked_identifier:i.sourceIdentifier,url:a})}}})}})}}),n()}var i=t("processRequest-xhr").processRequest,s=t("SimpleTemplating").SimpleTemplating;n.processRequest=o})

@@ -5,7 +5,7 @@ var trackChangeInterval = setInterval(function() {
 	var prevName = Name;
 	fetchTrackInfo();
 	if (Name !== prevName && Name) {
-		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc});
+		chrome.runtime.sendMessage( {'msg' : 'trackInfo','artist' : Artist1,'title' : Name,'album' : album,'imgsrc':ImgSrc, 'site' : 'http://www.saavn.com/*'});
 	}
 }, 3000);
 
@@ -34,3 +34,28 @@ function fetchTrackInfo() {
 	
 	
 }
+
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+
+    if (request.msg == "play"){
+
+    if($('#play')[0].getAttribute('class') == "controls" ) $('#play')[0].click();
+      else $('#pause')[0].click();
+  		}
+
+       if (request.msg == "next")
+      $('#fwd')[0].click();
+
+       if (request.msg == "prev")
+      $('#rew')[0].click();
+
+       if (request.msg == "shuffle")
+      $('#shuffle')[0].click();
+
+           if (request.msg == "repeat")
+     $('#repeat')[0].click();
+
+
+
+  });

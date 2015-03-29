@@ -7,7 +7,7 @@ window.onload = function() {
 	artist = '';
 	title = '' ;
 	album ='';
-
+	site_name ='';
 	var background = chrome.extension.getBackgroundPage();
 
 addEventListener("unload", function (event) {
@@ -63,15 +63,10 @@ $(".img-holder").show();
 $("#imgart").show();
 spinner('show');
 	
-	if (request.site == 'others'){
 	
-	
-	   getLyrics(request.artist, request.title, request.album);
-	 
-	  }
 	  
 	  
-    else if(request.site == 'youtube'){
+    if(request.site == 'youtube'){
 	
 	
 	header.innerHTML = '' ;
@@ -80,6 +75,14 @@ spinner('show');
 
 	}
 
+	else {
+	
+	   getLyrics(request.artist, request.title, request.album);
+	 
+	  }
+
+	  site_name=request.site;
+	  handlePlayer(request.site);
 	  $("#imgart").attr("src", request.imgsrc);
 	  changeToDominantColor(request.imgsrc);
 
@@ -95,7 +98,18 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 
 	if (request.msg == "change") {
 	
-	if (request.site == 'others'){
+
+
+	if(request.site == 'youtube'){
+	
+	
+	//mainView.innerHTML = "Searching lyrics...";
+	
+	processYoutubeData(request.title);
+	//searchLyricsWikia_google(request.title);
+	}
+
+	else {
 	
 	
 	//mainView.innerHTML = "Searching lyrics...";
@@ -105,15 +119,9 @@ chrome.runtime.onMessage.addListener(function(request, sender,
 	
 	}
 	
-	 else if(request.site == 'youtube'){
-	
-	
-	//mainView.innerHTML = "Searching lyrics...";
-	
-	processYoutubeData(request.title);
-	//searchLyricsWikia_google(request.title);
-	}
-	
+	 
+	site_name=request.site;
+	handlePlayer(request.site);
 	$("#imgart").attr("src", request.imgsrc);
 	changeToDominantColor(request.imgsrc);
 
@@ -184,11 +192,14 @@ function processYoutubeData(str){
 			var patt_title3 = new RegExp(/ \s*\|.*/g);
 			var patt_title1 = new RegExp(/\s*\'.*?\'\s*/g);
 			var patt_title2 = new RegExp(/\s*\".*?\"\s*/g);
+
+
+			var patt_title4 = new RegExp(/ \s*\I .*/g);
 			
-			if(patt_title1.test(str)||patt_title2.test(str)||patt_title3.test(str))
+			if(patt_title1.test(str)||patt_title2.test(str)||patt_title3.test(str)||patt_title4.test(str))
 			{
 			
-			
+			(str).replace(/ \s*\I .*/g, '');
 			str = (str).replace(/ \s*\|.*/g, '');
 			str = (str).replace(/\s*\|.*?\|\s*/g, ''); // Remove |.*|
 			str = str.replace(/^(|.*\s)'(.*)'(\s.*|)$/, '$2'); // capture 'Track title'
@@ -210,7 +221,6 @@ function processYoutubeData(str){
 				
 
 			}
-			
 			
 			
 			//For Non-Indian
@@ -293,6 +303,7 @@ r=Math.floor(r/count);
 g=Math.floor(g/count);
 b=Math.floor(b/count);
 
+document.getElementById("player").style.backgroundColor =
 document.getElementById("header-wrap").style.backgroundColor = 
 document.body.style.borderColor = 'rgb(' + r + ',' + g + ',' + b + ')';
 }
@@ -328,4 +339,95 @@ function spinner(opt){
 
 }
 
+
+// For PLayer///////////////////////////////////////////////////
+
+
+function handlePlayer(site){
+
+if(site == 'http://gaana.com/*' || site == 'http://www.saavn.com/*' ){
+
+$('.scrollbar').animate({height:'360px'}, 500);
+$('#player').show(500);
+$('#player').removeAttr('display');
+$("#player").css("display", "flex");
+}
+
+else{
+
+$('.scrollbar').animate({height:'410px'}, 500);
+$('#player').hide(500);
+}
+
+
+
+
+}
+
+
+
+///// Event listeners 
+
+
+document.addEventListener('DOMContentLoaded', function () {
+
+
+
+  document.getElementById('play').addEventListener('click', function(){
+
+chrome.tabs.query({'url': site_name },function(tabs){
+
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "play"}, function(response) {
+   
+      });
+ });
+  });
+
+
+document.getElementById('next').addEventListener('click', function(){
+
+chrome.tabs.query({'url': site_name},function(tabs){
+
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "next"}, function(response) {
+   
+      });
+  });
+  });
+
+document.getElementById('prev').addEventListener('click', function(){
+
+chrome.tabs.query({'url': site_name },function(tabs){
+
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "prev"}, function(response) {
+   
+      });
+  });
+  });
+
+
+
+document.getElementById('shuffle').addEventListener('click', function(){
+
+chrome.tabs.query({'url': site_name},function(tabs){
+
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "shuffle"}, function(response) {
+   
+      });
+  });
+  });
+
+
+document.getElementById('repeat').addEventListener('click', function(){
+
+chrome.tabs.query({'url': site_name },function(tabs){
+
+ chrome.tabs.sendMessage(tabs[0].id, {msg: "repeat"}, function(response) {
+   
+      });
+    });
+  });
+
+
+
+});
 
